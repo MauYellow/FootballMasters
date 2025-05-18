@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Dashboard - Football Masters</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="icon">
+  <link href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/quill/quill.snow.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/quill/quill.bubble.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='vendor/simple-datatables/style.css') }}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="Logo" width="30" height="100">
+        <span class="d-none d-lg-block">Football Masters</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="/">
+          <i class="bi bi-grid"></i>
+          <span>Home</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-heading">In programma</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Matches</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('get_matches', league_id=2) }}">
+              <i class="bi bi-circle"></i><span>Champions League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_matches', league_id=3) }}">
+              <i class="bi bi-circle"></i><span>Europa League</span>
+            </a>
+          </li>
+          <li>
+            <a href="matches">
+              <i class="bi bi-circle"></i><span>Seria A</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_matches', league_id=39) }}">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_matches', league_id=140) }}">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_matches', league_id=78) }}">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_matches', league_id=61) }}">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+
+      <li class="nav-heading">Campionati</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#campionati-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-calendar3"></i><span>Calendario</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="campionati-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('leagues', league=2, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Champions League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('leagues', league=3, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Europa League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('leagues', league=135, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Serie A</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('leagues', league=39, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('leagues', league=140, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('leagues', league=78, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('leagues', league=61, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Campionati Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#classifiche-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>Classifiche</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="classifiche-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('standings', league=2, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Champions League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('standings', league=3, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Europa League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('standings', league=135, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Serie A</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('standings', league=39, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('standings', league=140, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('standings', league=78, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('standings', league=61, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Classifiche Nav -->
+
+
+      <li class="nav-heading">Top 20</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#topscorer-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-award"></i><span>Top Scorer</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="topscorer-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('get_topscorer', league_id=2) }}">
+              <i class="bi bi-circle"></i><span>Champions League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topscorer', league_id=3) }}">
+              <i class="bi bi-circle"></i><span>Europa League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topscorer', league_id=135) }}">
+              <i class="bi bi-circle"></i><span>Serie A</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topscorer', league_id=39) }}">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topscorer', league_id=140) }}">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topscorer', league_id=78) }}">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topscorer', league_id=61) }}">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+
+        <a class="nav-link collapsed" data-bs-target="#topassist-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Top Assist</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="topassist-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('get_topassists', league_id=2) }}">
+              <i class="bi bi-circle"></i><span>Champions League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topassists', league_id=3) }}">
+              <i class="bi bi-circle"></i><span>Europa League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topassists', league_id=135) }}">
+              <i class="bi bi-circle"></i><span>Serie A</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topassists', league_id=39) }}">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topassists', league_id=140) }}">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topassists', league_id=78) }}">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topassists', league_id=61) }}">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+
+        <a class="nav-link collapsed" data-bs-target="#topgialli-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-file"></i><span>Top Cartellini Gialli</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="topgialli-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('get_topyellowcards', league_id=2) }}">
+              <i class="bi bi-circle"></i><span>Champions League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topyellowcards', league_id=3) }}">
+              <i class="bi bi-circle"></i><span>Europa League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topyellowcards', league_id=135) }}">
+              <i class="bi bi-circle"></i><span>Serie A</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topyellowcards', league_id=39) }}">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topyellowcards', league_id=140) }}">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topyellowcards', league_id=78) }}">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topyellowcards', league_id=61) }}">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+
+        <a class="nav-link collapsed" data-bs-target="#toprossi-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-back"></i><span>Top Cartellini Rossi</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="toprossi-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('get_topredcards', league_id=2) }}">
+              <i class="bi bi-circle"></i><span>Champions League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topredcards', league_id=3) }}">
+              <i class="bi bi-circle"></i><span>Europa League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topredcards', league_id=135) }}">
+              <i class="bi bi-circle"></i><span>Serie A</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topredcards', league_id=39) }}">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topredcards', league_id=140) }}">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topredcards', league_id=78) }}">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topredcards', league_id=61) }}">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+
+      </li><!-- End Icons Nav -->
+
+      <li class="nav-heading">Trasferimenti</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#transfers-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-arrow-repeat"></i><span>Movimenti di mercato</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="transfers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="icons-bootstrap.html">
+              <i class="bi bi-circle"></i><span>Serie A</span>
+            </a>
+          </li>
+          <li>
+            <a href="icons-remixx.html">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="icons-boxicons.html">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="icons-boxicons.html">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="icons-boxicons.html">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+      
+      <li class="nav-heading">Termini e Condizioni</li>
+      
+      <li class="nav-item">
+          <li>
+            <a href="/termini_e_condizioni">
+              <i class="bi bi-file-earmark-ruled"></i><span> Leggimi</span>
+            </a>
+          </li>
+      </li>
+    </ul>
+
+    
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+    <div style="position: relative; width: 100%; height: 100vh; overflow: hidden;">
+  
+      <!-- Immagine di sfondo -->
+      <img src="assets/img/background.jpg" alt="Background"
+        style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1;">
+  
+      <!-- Logo centrato -->
+      <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                    z-index: 1; text-align: center;">
+        <img src="assets/img/logo.png" alt="Logo" style="max-width: 500px; width: 100%;">
+      </div>
+  
+    </div>
+  </main>
+  
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>Football Masters</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by Maurizio Polverini - <a href="https://www.app-eleven.it/">App Eleven</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const btn = document.getElementById("selectDateBtn");
+      const datePicker = document.getElementById("goalDatePicker");
+
+      btn.addEventListener("click", () => {
+        datePicker.style.display = "block"; // mostra l'input
+        datePicker.focus(); // facoltativo: forza apertura calendario
+      });
+
+      datePicker.addEventListener("change", () => {
+        const selectedDate = datePicker.value;
+        console.log("Data selezionata:", selectedDate);
+        // puoi qui lanciare una fetch, un update, ecc.
+      });
+    });
+  </script>
+
+
+</body>
+
+</html>

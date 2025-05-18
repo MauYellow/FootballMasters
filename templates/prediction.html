@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+<!-- Favicons -->
+<link href="{{ url_for('static', filename='img/favicon.png') }}" rel="icon">
+<link href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+<!-- Vendor CSS Files -->
+<link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendor/quill/quill.snow.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendor/quill/quill.bubble.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='vendor/simple-datatables/style.css') }}" rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+<!-- JavaScript Files -->
+<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='vendor/apexcharts/apexcharts.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+<!-- Images -->
+<img src="{{ url_for('static', filename='img/profile-img.jpg') }}" alt="Profile Image">
+
+
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Updated: Apr 20 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/" class="logo d-flex align-items-center">
+        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" width="30" height="100">
+        <span class="d-none d-lg-block">Football Masters</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="/">
+          <i class="bi bi-grid"></i>
+          <span>Home</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-heading">In programma</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Matches</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('get_matches', league_id=2) }}">
+              <i class="bi bi-circle"></i><span>Champions League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_matches', league_id=3) }}">
+              <i class="bi bi-circle"></i><span>Europa League</span>
+            </a>
+          </li>
+          <li>
+            <a href="matches">
+              <i class="bi bi-circle"></i><span>Seria A</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_matches', league_id=39) }}">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_matches', league_id=140) }}">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_matches', league_id=78) }}">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_matches', league_id=61) }}">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+
+      <li class="nav-heading">Campionati</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#campionati-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-calendar3"></i><span>Calendario</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="campionati-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('leagues', league=2, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Champions League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('leagues', league=3, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Europa League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('leagues', league=135, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Serie A</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('leagues', league=39, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('leagues', league=140, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('leagues', league=78, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('leagues', league=61, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Campionati Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#classifiche-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>Classifiche</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="classifiche-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('standings', league=2, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Champions League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('standings', league=3, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Europa League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('standings', league=135, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Serie A</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('standings', league=39, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('standings', league=140, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('standings', league=78, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('standings', league=61, season=current_season) }}">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Classifiche Nav -->
+
+
+      <li class="nav-heading">Top 20</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#topscorer-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-award"></i><span>Top Scorer</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="topscorer-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('get_topscorer', league_id=2) }}">
+              <i class="bi bi-circle"></i><span>Champions League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topscorer', league_id=3) }}">
+              <i class="bi bi-circle"></i><span>Europa League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topscorer', league_id=135) }}">
+              <i class="bi bi-circle"></i><span>Serie A</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topscorer', league_id=39) }}">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topscorer', league_id=140) }}">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topscorer', league_id=78) }}">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topscorer', league_id=61) }}">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+
+        <a class="nav-link collapsed" data-bs-target="#topassist-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Top Assist</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="topassist-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('get_topassists', league_id=2) }}">
+              <i class="bi bi-circle"></i><span>Champions League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topassists', league_id=3) }}">
+              <i class="bi bi-circle"></i><span>Europa League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topassists', league_id=135) }}">
+              <i class="bi bi-circle"></i><span>Serie A</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topassists', league_id=39) }}">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topassists', league_id=140) }}">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topassists', league_id=78) }}">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topassists', league_id=61) }}">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+
+        <a class="nav-link collapsed" data-bs-target="#topgialli-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-file"></i><span>Top Cartellini Gialli</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="topgialli-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('get_topyellowcards', league_id=2) }}">
+              <i class="bi bi-circle"></i><span>Champions League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topyellowcards', league_id=3) }}">
+              <i class="bi bi-circle"></i><span>Europa League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topyellowcards', league_id=135) }}">
+              <i class="bi bi-circle"></i><span>Serie A</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topyellowcards', league_id=39) }}">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topyellowcards', league_id=140) }}">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topyellowcards', league_id=78) }}">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topyellowcards', league_id=61) }}">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+
+        <a class="nav-link collapsed" data-bs-target="#toprossi-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-back"></i><span>Top Cartellini Rossi</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="toprossi-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url_for('get_topredcards', league_id=2) }}">
+              <i class="bi bi-circle"></i><span>Champions League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topredcards', league_id=3) }}">
+              <i class="bi bi-circle"></i><span>Europa League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topredcards', league_id=135) }}">
+              <i class="bi bi-circle"></i><span>Serie A</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topredcards', league_id=39) }}">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topredcards', league_id=140) }}">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topredcards', league_id=78) }}">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('get_topredcards', league_id=61) }}">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+
+      </li><!-- End Icons Nav -->
+
+      <li class="nav-heading">Trasferimenti</li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#transfers-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-arrow-repeat"></i><span>Movimenti di mercato</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="transfers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="icons-bootstrap.html">
+              <i class="bi bi-circle"></i><span>Serie A</span>
+            </a>
+          </li>
+          <li>
+            <a href="icons-remixx.html">
+              <i class="bi bi-circle"></i><span>Premier League</span>
+            </a>
+          </li>
+          <li>
+            <a href="icons-boxicons.html">
+              <i class="bi bi-circle"></i><span>La Liga</span>
+            </a>
+          </li>
+          <li>
+            <a href="icons-boxicons.html">
+              <i class="bi bi-circle"></i><span>Bundesliga</span>
+            </a>
+          </li>
+          <li>
+            <a href="icons-boxicons.html">
+              <i class="bi bi-circle"></i><span>Ligue 1</span>
+            </a>
+          </li>
+        </ul>
+
+      <li class="nav-heading">Termini e Condizioni</li>
+
+      <li class="nav-item">
+      <li>
+        <a href="/termini_e_condizioni">
+          <i class="bi bi-file-earmark-ruled"></i><span> Leggimi</span>
+        </a>
+      </li>
+      </li>
+    </ul>
+
+
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ url_for('bookmakers', fixture_id=match_id) }}">Quote & Scommesse</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-4">
+          <div class="row">
+            <!-- Casa Card -->
+            <div class="col-xxl-12 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title"> In casa <span>| Today</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <img src="{{ flag_home }}" alt="Icona" style="width: 60px; height: 60px;">
+                    </div>
+                    <a href="{{ url_for('team_stats', team_id=home_team_id, league_id=league_id) }}" class="text-decoration-none text-dark">
+                      <div class="ps-3">
+                        <h6>{{ team_home }}</h6>
+                    </a>
+                      <span class="text-success small pt-1 fw-bold">{{ form_home }}</span>
+                      <br>
+                      <span class="text-muted small pt-2 ps-1">Forma</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Sales Card -->
+
+            <!-- Inizio Card In Evidenza -->
+<div class="col-xxl-12 col-md-6">
+  <div class="card info-card sales-card">
+    <div class="card-body">
+      <h5 class="card-title"> In evidenza <span>| Probabilità</span></h5>
+
+      <div class="d-flex align-items-center justify-content-between">
+        <!-- Marcatore -->
+        <div class="text-center">
+          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+            <img src="{{ home_top_players_goal['player_photo'] }}" alt="Marcatore" style="width: 60px; height: 60px; border-radius: 50%;">
+          </div>
+          <h6 style="font-size: 12px;">{{ home_top_players_goal['player_name'] }}</h6>
+          <span class="text-success small fw-bold">Goal</span>
+          <br>
+          <span class="text-muted small">{{ home_top_players_goal['player_chance_score_goal'] }}</span>
+        </div>
+
+        <!-- Assistman -->
+        <div class="text-center">
+          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+            <img src="{{ home_top_players_assist['player_photo'] }}" alt="Assistman" style="width: 60px; height: 60px; border-radius: 50%;">
+          </div>
+          <h6 style="font-size: 12px;">{{ home_top_players_assist['player_name'] }}</h6>
+          <span class="text-primary small fw-bold">Assist</span>
+          <br>
+          <span class="text-muted small">{{ home_top_players_assist['player_chance_provide_assist'] }}</span>
+        </div>
+
+        <!-- Cartellino Giallo -->
+        <div class="text-center">
+          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+            <img src="{{ home_top_players_yellowcard['player_photo'] }}" alt="Cartellino Giallo" style="width: 60px; height: 60px; border-radius: 50%;">
+          </div>
+          <h6 style="font-size: 12px;">{{ home_top_players_yellowcard['player_name'] }}</h6>
+          <span class="text-warning small fw-bold">Gialli</span>
+          <br>
+          <span class="text-muted small">{{ home_top_players_yellowcard['player_chance_yellowcard'] }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+            <!-- Fine Card In Evidenza -->
+
+            <!-- Home History Card -->
+            <div class="col-xxl-12 col-md-6">
+              <div class="card info-card revenue-card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ team_home }} <span>| Statistiche</span></h5>
+                  <div class="row justify-content-center">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="row text-center fw-bold"> 
+                          <div class="col-3"><h6 class="fs-6">In casa</h6></div>
+                          <div class="col-6"></div> 
+                          <div class="col-3"><h6 class="fs-6">In trasferta</h6></div>
+                        </div>
+                        
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ history_home['goals']['for']['average']['home'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Media Gol Fatti</span></div>
+                          <div class="col-3"><h6>{{ history_home['goals']['for']['average']['away'] }}</h6></div>
+                        </div>
+                    
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ history_home['goals']['against']['average']['home'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Media Gol Subiti</span></div>
+                          <div class="col-3"><h6>{{ history_home['goals']['against']['average']['away'] }}</h6></div>
+                        </div>
+                    
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ history_home['biggest']['wins']['home'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Miglior Vittoria</span></div>
+                          <div class="col-3"><h6>{{ history_home['biggest']['wins']['away'] }}</h6></div>
+                        </div>
+                    
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ history_home['biggest']['loses']['home'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Peggior Sconfitta</span></div>
+                          <div class="col-3"><h6>{{ history_home['biggest']['loses']['away'] }}</h6></div>
+                        </div>
+                    
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ history_home['clean_sheet']['home'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Clean Sheet</span></div>
+                          <div class="col-3"><h6>{{ history_home['clean_sheet']['away'] }}</h6></div>
+                        </div>
+                    
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ history_home['failed_to_score']['home'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Senza Segnare</span></div>
+                          <div class="col-3"><h6>{{ history_home['failed_to_score']['away'] }}</h6></div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Home History -->
+
+            <!-- Box Gol per Minuto con Chart.js -->
+<div class="col-xxl-12 col-xl-12">
+  <div class="card info-card customers-card">
+    <div class="card-body">
+      <h5 class="card-title">Gol per Minuto <span>| {{ team_home }}</span></h5>
+
+      <!-- Chart.js Bar Chart -->
+      <canvas id="barChart" style="max-height: 400px;"></canvas>
+    </div>
+  </div>
+</div><!-- End Gol per Minuto Box -->
+
+<!-- Script per Chart.js -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    new Chart(document.querySelector('#barChart'), {
+      type: 'bar',
+      data: {
+        labels: ['0-15\'', '16-30\'', '31-45\'', '46-60\'', '61-75\'', '76-90\'', '91-105\''],
+        datasets: [{
+          label: 'Gol segnati',
+          data: [
+  {{ goal_minute_home['0-15']['total'] if goal_minute_home['0-15'] and goal_minute_home['0-15']['total'] is not none else 0 }},
+  {{ goal_minute_home['16-30']['total'] if goal_minute_home['16-30'] and goal_minute_home['16-30']['total'] is not none else 0 }},
+  {{ goal_minute_home['31-45']['total'] if goal_minute_home['31-45'] and goal_minute_home['31-45']['total'] is not none else 0 }},
+  {{ goal_minute_home['46-60']['total'] if goal_minute_home['46-60'] and goal_minute_home['46-60']['total'] is not none else 0 }},
+  {{ goal_minute_home['61-75']['total'] if goal_minute_home['61-75'] and goal_minute_home['61-75']['total'] is not none else 0 }},
+  {{ goal_minute_home['76-90']['total'] if goal_minute_home['76-90'] and goal_minute_home['76-90']['total'] is not none else 0 }},
+  {{ goal_minute_home['91-105']['total'] if goal_minute_home['91-105'] and goal_minute_home['91-105']['total'] is not none else 0 }}
+],
+
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(201, 203, 207, 0.6)'
+          ],
+          borderColor: [
+            'rgb(54, 162, 235)',
+            'rgb(75, 192, 192)',
+            'rgb(255, 206, 86)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 99, 132)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  });
+</script>
+
+
+<!-- Grafico: Gol Subiti per Minuto -->
+<div class="col-xxl-12 col-xl-12">
+  <div class="card info-card customers-card">
+    <div class="card-body">
+      <h5 class="card-title">Gol Subiti per Minuto <span>| {{ team_home }}</span></h5>
+
+      <!-- Canvas per il grafico a torta -->
+      <canvas id="pieChartGoalsAgainst" style="max-height: 400px;"></canvas>
+    </div>
+  </div>
+</div><!-- End Gol Subiti per Minuto Box -->
+
+<!-- Script per il grafico a torta -->
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script> <!-- Carica il plugin per le etichette -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    new Chart(document.querySelector('#pieChartGoalsAgainst'), {
+      type: 'pie',
+      data: {
+        labels: [
+          '0-15\' (' + ({{ goal_minute_home_subiti['0-15']['percentage'].replace('%', '')|float if goal_minute_home_subiti['0-15'] and goal_minute_home_subiti['0-15']['percentage'] is not none else 0 }}) + '%)',
+          '16-30\' (' + ({{ goal_minute_home_subiti['16-30']['percentage'].replace('%', '')|float if goal_minute_home_subiti['16-30'] and goal_minute_home_subiti['16-30']['percentage'] is not none else 0 }}) + '%)',
+          '31-45\' (' + ({{ goal_minute_home_subiti['31-45']['percentage'].replace('%', '')|float if goal_minute_home_subiti['31-45'] and goal_minute_home_subiti['31-45']['percentage'] is not none else 0 }}) + '%)',
+          '46-60\' (' + ({{ goal_minute_home_subiti['46-60']['percentage'].replace('%', '')|float if goal_minute_home_subiti['46-60'] and goal_minute_home_subiti['46-60']['percentage'] is not none else 0 }}) + '%)',
+          '61-75\' (' + ({{ goal_minute_home_subiti['61-75']['percentage'].replace('%', '')|float if goal_minute_home_subiti['61-75'] and goal_minute_home_subiti['61-75']['percentage'] is not none else 0 }}) + '%)',
+          '76-90\' (' + ({{ goal_minute_home_subiti['76-90']['percentage'].replace('%', '')|float if goal_minute_home_subiti['76-90'] and goal_minute_home_subiti['76-90']['percentage'] is not none else 0 }}) + '%)',
+          '91-105\' (' + ({{ goal_minute_home_subiti['91-105']['percentage'].replace('%', '')|float if goal_minute_home_subiti['91-105'] and goal_minute_home_subiti['91-105']['percentage'] is not none else 0 }}) + '%)'
+        ],
+        datasets: [{
+          label: 'Gol Subiti',
+          data: [
+            {{ goal_minute_home_subiti['0-15']['percentage'].replace('%', '')|float if goal_minute_home_subiti['0-15'] and goal_minute_home_subiti['0-15']['percentage'] is not none else 0 }},
+            {{ goal_minute_home_subiti['16-30']['percentage'].replace('%', '')|float if goal_minute_home_subiti['16-30'] and goal_minute_home_subiti['16-30']['percentage'] is not none else 0 }},
+            {{ goal_minute_home_subiti['31-45']['percentage'].replace('%', '')|float if goal_minute_home_subiti['31-45'] and goal_minute_home_subiti['31-45']['percentage'] is not none else 0 }},
+            {{ goal_minute_home_subiti['46-60']['percentage'].replace('%', '')|float if goal_minute_home_subiti['46-60'] and goal_minute_home_subiti['46-60']['percentage'] is not none else 0 }},
+            {{ goal_minute_home_subiti['61-75']['percentage'].replace('%', '')|float if goal_minute_home_subiti['61-75'] and goal_minute_home_subiti['61-75']['percentage'] is not none else 0 }},
+            {{ goal_minute_home_subiti['76-90']['percentage'].replace('%', '')|float if goal_minute_home_subiti['76-90'] and goal_minute_home_subiti['76-90']['percentage'] is not none else 0 }},
+            {{ goal_minute_home_subiti['91-105']['percentage'].replace('%', '')|float if goal_minute_home_subiti['91-105'] and goal_minute_home_subiti['91-105']['percentage'] is not none else 0 }}
+          ],  // Percentuali (come numeri) dei gol subiti
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(201, 203, 207, 0.6)'
+          ],
+          borderColor: [
+            'rgb(54, 162, 235)',
+            'rgb(75, 192, 192)',
+            'rgb(255, 206, 86)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 99, 132)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(2) + '%'; // Mostra la percentuale nel tooltip
+              }
+            }
+          },
+          datalabels: {
+            color: 'white',
+            font: {
+              weight: 'bold',
+              size: 14
+            },
+            formatter: function(value, ctx) {
+              return value.toFixed(2) + '%'; // Mostra la percentuale sul grafico
+            }
+          }
+        }
+      }
+    });
+  });
+</script>
+
+
+
+</div>
+<!-- Cartellini Card -->
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Grafico Cartellini</h5>
+        
+              <!-- Cartellini Chart -->
+              <div id="cartelliniHome"></div>
+        
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  new ApexCharts(document.querySelector("#cartelliniHome"), {
+                    series: [{
+                      name: 'Gialli',
+                      data: [
+                      {{ cards_home['yellow']['0-15']['total'] if cards_home['yellow']['0-15']['total'] is not none else 0 }},
+                      {{ cards_home['yellow']['16-30']['total'] if cards_home['yellow']['16-30']['total'] is not none else 0 }},
+                      {{ cards_home['yellow']['31-45']['total'] if cards_home['yellow']['31-45']['total'] is not none else 0 }},
+                      {{ cards_home['yellow']['46-60']['total'] if cards_home['yellow']['46-60']['total'] is not none else 0 }},
+                      {{ cards_home['yellow']['61-75']['total'] if cards_home['yellow']['61-75']['total'] is not none else 0 }},
+                      {{ cards_home['yellow']['76-90']['total'] if cards_home['yellow']['76-90']['total'] is not none else 0 }},
+                      {{ cards_home['yellow']['91-105']['total'] if cards_home['yellow']['91-105']['total'] is not none else 0 }},
+                      {{ cards_home['yellow']['106-120']['total'] if cards_home['yellow']['106-120']['total'] is not none else 0 }}
+                      ]
+                    }, {
+                      name: 'Rossi',
+                      data: [
+                      {{ cards_home['red']['0-15']['total'] if cards_home['red']['0-15']['total'] is not none else 0 }},
+                      {{ cards_home['red']['16-30']['total'] if cards_home['red']['16-30']['total'] is not none else 0 }},
+                      {{ cards_home['red']['31-45']['total'] if cards_home['red']['31-45']['total'] is not none else 0 }},
+                      {{ cards_home['red']['46-60']['total'] if cards_home['red']['46-60']['total'] is not none else 0 }},
+                      {{ cards_home['red']['61-75']['total'] if cards_home['red']['61-75']['total'] is not none else 0 }},
+                      {{ cards_home['red']['76-90']['total'] if cards_home['red']['76-90']['total'] is not none else 0 }},
+                      {{ cards_home['red']['91-105']['total'] if cards_home['red']['91-105']['total'] is not none else 0 }},
+                      {{ cards_home['red']['106-120']['total'] if cards_home['red']['106-120']['total'] is not none else 0 }}
+                      ]
+                    }],
+                    chart: {
+                      type: 'bar',
+                      height: 350,
+                    },
+                    plotOptions: {
+                      bar: {
+                        horizontal: false,
+                        columnWidth: '90%',
+                        endingShape: 'rounded'
+                      },
+                    },
+                    dataLabels: {
+                      enabled: false
+                    },
+                    colors: ['rgba(255, 223, 0, 0.7)', 'rgba(255, 0, 0, 2)'],
+                    stroke: {
+                      show: true,
+                      width: 2,
+                      colors: ['transparent']
+                    },
+                    xaxis: {
+                      categories: ['0-15', '16-30', '31-45', '46-60', '61-75', '76-90', '91-105', '106-120'],
+                      title: {
+                        text: 'Minuti Giocati'
+                      }
+                    },
+                    yaxis: {
+                      title: {
+                        text: 'Cartellini Totali'
+                      }
+                    },
+                    fill: {
+                      opacity: 50
+                    },
+                    tooltip: {
+                      y: {
+                        formatter: function (val) {
+                          return val
+                        }
+                      }
+                    }
+                  }).render();
+                });
+              </script>
+              <!-- End Cartellini Chart -->
+        
+            </div>
+          </div>
+        </div>
+      <!-- End Cartellini Card -->
+        </div><!-- End Left side columns -->
+
+        <!-- Center columns -->
+
+        <div class="col-lg-4">
+          <div class="row">
+                          <!-- PROVA WIDGET FIXTURE**-->
+                          <div id="wg-api-football-game" data-host="v3.football.api-sports.io" data-key="3afb8282007c6df6c618c34ebf25cd04"
+                            data-id="{{ match_id }}" data-theme="" data-refresh="15" data-show-errors="false" data-show-logos="true">
+                          </div>
+                          <script type="module" src="https://widgets.api-sports.io/2.0.3/widgets.js">
+                          </script>
+                          
+                          <!-- PROVA WIDGET FIXTURE**-->
+          <!-- Risultato Stimato -->
+          <div class="card">
+            <div class="card-body pb-0">
+              <h5 class="card-title">Risultato Stimato <span>| Today</span></h5>
+
+              <div class="news">
+                <div class="post-item clearfix">
+                  <img src="{{ url_for('static', filename='img/winner_match.png') }}" alt="winner" height="70">
+                  <h4><a href="#">Vincitore</a></h4>
+                  <p> {{ prediction['winner']['name'] }} <span>| {{ prediction['winner']['comment'] }}</span></p>
+                </div>
+
+                <div class="post-item clearfix">
+                  <img src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/external-up-down-wayfinding-flaticons-lineal-color-flat-icons.png" alt="">
+                  <h4><a href="#">Under / Over</a></h4>
+                  <p>{{ prediction['under_over'] if prediction['under_over'] is not none else 'Non consigliato' }}</p>
+                </div>
+
+                <div class="post-item clearfix">
+                  <img src="{{ url_for('static', filename='img/foot-ball.png') }}" alt="winner" height="70">
+                  <h4><a href="#">Goals</a></h4>
+                  <p>In casa: <span>{{ prediction['goals']['home'] }}</span> | Fuori casa: <span>{{ prediction['goals']['away'] }}</span></p>
+                </div>
+
+                <div class="post-item clearfix">
+                  <img src="{{ url_for('static', filename='img/reccomended.png') }}" alt="" height="70">
+                  <h4><a href="#">Raccomandato</a></h4>
+                  <p>{{ prediction['advice'] }}</p>
+                </div>
+
+                <div class="post-item clearfix">
+                  <img src="https://img.icons8.com/dusk/64/discount.png" alt="" height="70">
+                  <h4><a href="#">Percentuale Vittoria</a></h4>
+                  <p>Casa: <span>{{ prediction['percent']['home'] }}</span> Pareggio: <span>{{ prediction['percent']['draw'] }}</span> Trasferta: <span>{{ prediction['percent']['away'] }}</span></p>
+                </div>
+
+              </div><!-- End sidebar recent posts-->
+
+            </div>
+          </div><!-- End Risultato Stimato -->
+
+          <!-- Altre Statistiche h2h Card -->
+            <div class="col-xxl-12 col-md-6">
+              <div class="card info-card revenue-card">
+                <div class="card-body">
+                  <h5 class="card-title">Altre Statistiche <span>| Stagionali</span></h5>
+                  <div class="row justify-content-center">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="row text-center fw-bold"> 
+                          <div class="col-3">
+                            <img src="{{ flag_home }}" alt="Icona" style="width: 40px; height: 40px;">
+                          </div>
+                          <div class="col-6">Media a partita</div> 
+                          <div class="col-3">
+                            <img src="{{ flag_away }}" alt="Icona" style="width: 40px; height: 40px;">
+                          </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ home_master_stats['tot_yellowcard_per_match'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Cartellini Gialli</span></div>
+                          <div class="col-3"><h6>{{ away_master_stats['tot_yellowcard_per_match'] }}</h6></div>
+                        </div>
+                    
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ home_master_stats['tot_fouls_committed_per_match'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Falli Commessi</span></div>
+                          <div class="col-3"><h6>{{ away_master_stats['tot_fouls_committed_per_match'] }}</h6></div>
+                        </div>
+
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ home_master_stats['tot_shots_per_match'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Tiri Totali</span></div>
+                          <div class="col-3"><h6>{{ away_master_stats['tot_shots_per_match'] }}</h6></div>
+                        </div>
+                    
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ home_master_stats['tot_shots_in_goal_per_match'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Tiri in Porta</span></div>
+                          <div class="col-3"><h6>{{ away_master_stats['tot_shots_in_goal_per_match'] }}</h6></div>
+                        </div>
+
+                        <div class="row text-center">
+                          <div class="col-3"><h6>12%*</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Percentuale Gol x Tiro*</span></div>
+                          <div class="col-3"><h6>15%*</h6></div>
+                        </div>
+
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ home_master_stats['tot_saves_per_match'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Parate</span></div>
+                          <div class="col-3"><h6>{{ away_master_stats['tot_saves_per_match'] }}</h6></div>
+                        </div>
+
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ history_away['failed_to_score']['home'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Offside*</span></div>
+                          <div class="col-3"><h6>{{ history_away['failed_to_score']['away'] }}</h6></div>
+                        </div>
+
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ history_away['failed_to_score']['home'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Passaggi Totali*</span></div>
+                          <div class="col-3"><h6>{{ history_away['failed_to_score']['away'] }}</h6></div>
+                        </div>
+
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ history_away['failed_to_score']['home'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Passaggi Completati*</span></div>
+                          <div class="col-3"><h6>{{ history_away['failed_to_score']['away'] }}</h6></div>
+                        </div>
+
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ history_away['failed_to_score']['home'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Possibilità Rigore*</span></div>
+                          <div class="col-3"><h6>{{ history_away['failed_to_score']['away'] }}</h6></div>
+                        </div>
+
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Altre Statistiche h2h --> 
+
+            <!-- Statistiche Ultimi 2 scontri diretti -->
+            <div class="col-xxl-12 col-md-6">
+              <div class="card info-card revenue-card">
+                <div class="card-body">
+                  <h5 class="card-title">Ultimo Scontro Diretto <span>| h2h</span></h5>
+                  <div class="row justify-content-center">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="row text-center fw-bold">
+                          <div class="col-3">
+                            <img src="{{ last_match[0].team.logo }}" alt="Icona" style="width: 40px; height: 40px;">
+                          </div>
+                          <div class="col-6">Media a partita</div>
+                          <div class="col-3">
+                            <img src="{{ last_match[1].team.logo }}" alt="Icona" style="width: 40px; height: 40px;">
+                          </div>
+                        </div>
+            
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[0].value }}</h6> <!-- Tiri in Porta Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Tiri in Porta</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[0].value }}</h6> <!-- Tiri in Porta Venezia -->
+                          </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[1].value }}</h6> <!-- Tiri Fuori Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Tiri Fuori</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[1].value }}</h6> <!-- Tiri Fuori Venezia -->
+                          </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[4].value }}</h6> <!-- Tiri dentro l'area Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Tiri dentro l'area</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[4].value }}</h6> <!-- Tiri dentro l'area Venezia -->
+                          </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[5].value }}</h6> <!-- Tiri fuori l'area Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Tiri fuori l'area</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[5].value }}</h6> <!-- Tiri fuori l'area Venezia -->
+                          </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[2].value }}</h6> <!-- Tiri totali Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Tiri totali</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[2].value }}</h6> <!-- Tiri totali Venezia -->
+                          </div>
+                        </div>
+
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[12].value }}</h6> <!-- Parate totali Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Parate</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[12].value }}</h6> <!-- Parate totali Venezia -->
+                          </div>
+                        </div>
+
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[13].value }}</h6> <!-- Parate totali Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Passaggi Totali</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[13].value }}</h6> <!-- Parate totali Venezia -->
+                          </div>
+                        </div>
+
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[14].value }}</h6> <!-- Parate totali Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Passaggi Riusciti</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[14].value }}</h6> <!-- Parate totali Venezia -->
+                          </div>
+                        </div>
+
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[15].value }}</h6> <!-- Parate totali Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Accuratezza Passaggi</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[15].value }}</h6> <!-- Parate totali Venezia -->
+                          </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[6].value }}</h6> <!-- Falli Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Falli</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[6].value }}</h6> <!-- Falli Venezia -->
+                          </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[7].value }}</h6> <!-- Corner Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Corner</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[7].value }}</h6> <!-- Corner Venezia -->
+                          </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[8].value }}</h6> <!-- Fuorigioco Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Fuorigioco</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[8].value }}</h6> <!-- Fuorigioco Venezia -->
+                          </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[10].value }}</h6> <!-- Cartellini Gialli Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Cartellini Gialli</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[10].value }}</h6> <!-- Cartellini Gialli Venezia -->
+                          </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[11].value }}</h6> <!-- Cartellini Rossi Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Cartellini Rossi</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[11].value }}</h6> <!-- Cartellini Rossi Venezia -->
+                          </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[16].value }}</h6> <!-- Expected Goals Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Expected Gol (xG)</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[16].value }}</h6> <!-- Expected Goals Venezia -->
+                          </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ last_match.0.statistics[17].value }}</h6> <!-- Goal Prevented Bologna -->
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Goal Prevented (GP)</span></div>
+                          <div class="col-3">
+                            <h6>{{ last_match.1.statistics[17].value }}</h6> <!-- Goal Prevented Venezia -->
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </div>
+            
+                  </div>
+                </div>
+            
+              </div>
+            </div><!-- End Statistiche Ultimi 3 scontri diretti -->
+          
+
+          <!-- Spider -->
+          <div class="card">
+            <div class="filter">
+              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <li class="dropdown-header text-start">
+                  <h6>Filter</h6>
+                </li>
+
+                <li><a class="dropdown-item" href="#">Today</a></li>
+                <li><a class="dropdown-item" href="#">This Month</a></li>
+                <li><a class="dropdown-item" href="#">This Year</a></li>
+              </ul>
+            </div>
+
+            <div class="card-body pb-0">
+              <h5 class="card-title">Head 2 Head <span>| Totale</span></h5>
+
+              <div id="budgetChart" style="min-height: 400px;" class="echart"></div>
+
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  var budgetChart = echarts.init(document.querySelector("#budgetChart")).setOption({
+                    legend: {
+                      data: ['{{ team_home }}', '{{ team_away }}']
+                    },
+                    radar: {
+                      // shape: 'circle',
+                      indicator: [{
+                          name: 'Attacco',
+                          max: 100
+                        },
+                        {
+                          name: 'Difesa',
+                          max: 100
+                        },
+                        {
+                          name: 'Poss. Palla',
+                          max: 100
+                        },
+                        {
+                          name: 'Scontri Diretti',
+                          max: 100
+                        },
+                        {
+                          name: 'Forma Stag.',
+                          max: 100
+                        },
+                        {
+                          name: 'Perc. Vittoria',
+                          max: 100
+                        }
+                      ]
+                    },
+                    series: [{
+                      name: 'Budget vs spending',
+                      type: 'radar',
+                      data: [{
+                          value: {{ spider_home_lista }},
+                          name: "{{ team_home }}",
+                        },
+                        {
+                          value: {{ spider_away_lista }},
+                          name: '{{ team_away }}'
+                        }
+                      ]
+                    }]
+                  });
+                });
+              </script>
+
+            </div>
+          </div><!-- End Spider -->
+          </div>
+          
+        <!-- Precedenti Incontri History -->
+        <div class="col-xxl-12 col-xl-12">
+          <div class="card info-card customers-card">
+            <div class="card-body">
+              <h5 class="card-title">Incontri Precedenti <span>| Ultime partite</span></h5>
+        
+              <!-- List group With Icons -->
+              <ul class="list-group">
+                <div class="row">
+                  {% for match in precedenti_matchJSON %}
+                  <div class="col-12 mb-3">
+                    <div class="row align-items-center p-3 border rounded" style="border: 1px solid #dcdcdc;">
+                      <!-- Colonna per squadra in casa -->
+                      <div class="col-3 text-center">
+                        <img src="{{ match['teams']['home']['logo'] }}" alt="Home Team" class="me-1"
+                          style="width: 35px; height: 35px;">
+                      </div>
+        
+                      <!-- Colonna centrale con i risultati -->
+                      <div class="col-6 text-center">
+                        <!-- Data e competizione -->
+                        <div>
+                          {% set match_date = match['fixture']['date'][:10] %}
+                          {% set formatted_date = match_date.split('-') %}
+                          <span class="text-muted small">{{ formatted_date[2] }}/{{ formatted_date[1] }}/{{ formatted_date[0] }}
+                            - {{ match['league']['name'] }}</span>
+                        </div>
+        
+                        <!-- Risultato primo tempo -->
+                        <div>
+                          <span class="text-muted small">1° Tempo: {{ match['score']['halftime']['home'] }} - {{
+                            match['score']['halftime']['away'] }}</span>
+                        </div>
+                        <!-- Risultato finale -->
+                        <div class="fw-bold" style="font-size: 1.25rem;">
+                          {{ match['score']['fulltime']['home'] }} - {{ match['score']['fulltime']['away'] }}
+                        </div>
+        
+                        <!-- Condizione per Rimonta -->
+                        {% set ht_home = match['score']['halftime']['home'] %}
+                        {% set ht_away = match['score']['halftime']['away'] %}
+                        {% set ft_home = match['score']['fulltime']['home'] %}
+                        {% set ft_away = match['score']['fulltime']['away'] %}
+                        
+                        {% if ht_home is not none and ht_away is not none and ft_home is not none and ft_away is not none %}
+                        {# Rimonta Casa: svantaggio nel primo tempo, vittoria finale #}
+                        {% if ht_home < ht_away and ft_home> ft_away %}
+                          <div class="mt-2">
+                            <span class="badge bg-success text-white">Rimonta Casa</span>
+                          </div>
+                        
+                          {# Rimonta Trasferta: vantaggio casa nel primo tempo, vittoria trasferta finale #}
+                          {% elif ht_home > ht_away and ft_home < ft_away %} <div class="mt-2">
+                            <span class="badge bg-primary text-white">Rimonta Trasferta</span>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+
+                      </div>
+        
+                      <!-- Colonna per squadra in trasferta -->
+                      <div class="col-3 text-center">
+                        <img src="{{ match['teams']['away']['logo'] }}" alt="Away Team" class="me-1"
+                          style="width: 35px; height: 35px;">
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </ul><!-- End List group With Icons -->
+            </div>
+          </div>
+        </div><!-- End Precedenti incontri History -->
+
+
+
+
+        </div><!-- End Center side columns -->
+        
+        <!-- Right side columns -->
+        <div class="col-lg-4">
+          <div class="row">
+            <!-- Away Card -->
+            <div class="col-xxl-12 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title"> In trasferta <span>| Today</span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <img src="{{ flag_away }}" alt="Icona" style="width: 60px; height: 60px;">
+                    </div>
+                    <a href="{{ url_for('team_stats', team_id=away_team_id, league_id=league_id) }}" class="text-decoration-none text-dark">
+                      <div class="ps-3">
+                        <h6>{{ team_away }}</h6>
+                    </a>
+                      <span class="text-success small pt-1 fw-bold">{{ form_away }}</span>
+                      <br>
+                      <span class="text-muted small pt-2 ps-1">Forma</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Away Card -->
+
+            <!-- Inizio Card In Evidenza Away-->
+            <div class="col-xxl-12 col-md-6">
+              <div class="card info-card sales-card">
+                <div class="card-body">
+                  <h5 class="card-title"> In evidenza <span>| Probabilità</span></h5>
+            
+                  <div class="d-flex align-items-center justify-content-between">
+                    <!-- Marcatore -->
+                    <div class="text-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <img src="{{ away_top_players_goal['player_photo'] }}" alt="Marcatore"
+                          style="width: 60px; height: 60px; border-radius: 50%;">
+                      </div>
+                      <h6 style="font-size: 12px;">{{ away_top_players_goal['player_name'] }}</h6>
+                      <span class="text-success small fw-bold">Goal</span>
+                      <br>
+                      <span class="text-muted small">{{ away_top_players_goal['player_chance_score_goal'] }}</span>
+                    </div>
+            
+                    <!-- Assistman -->
+                    <div class="text-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <img src="{{ away_top_players_assist['player_photo'] }}" alt="Assistman"
+                          style="width: 60px; height: 60px; border-radius: 50%;">
+                      </div>
+                      <h6 style="font-size: 12px;">{{ away_top_players_assist['player_name'] }}</h6>
+                      <span class="text-primary small fw-bold">Assist</span>
+                      <br>
+                      <span class="text-muted small">{{ away_top_players_assist['player_chance_provide_assist'] }}</span>
+                    </div>
+            
+                    <!-- Cartellino Giallo -->
+                    <div class="text-center">
+                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <img src="{{ away_top_players_yellowcard['player_photo'] }}" alt="Cartellino Giallo"
+                          style="width: 60px; height: 60px; border-radius: 50%;">
+                      </div>
+                      <h6 style="font-size: 12px;">{{ away_top_players_yellowcard['player_name'] }}</h6>
+                      <span class="text-warning small fw-bold">Gialli</span>
+                      <br>
+                      <span class="text-muted small">{{ away_top_players_yellowcard['player_chance_yellowcard'] }}</span>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!-- Fine Card In Evidenza -->
+
+            <!-- Home History Card -->
+            <div class="col-xxl-12 col-md-6">
+              <div class="card info-card revenue-card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ team_away }} <span>| Statistiche</span></h5>
+                  <div class="row justify-content-center">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="row text-center fw-bold"> 
+                          <div class="col-3"><h6 class="fs-6">In casa</h6></div>
+                          <div class="col-6"></div> 
+                          <div class="col-3"><h6 class="fs-6">In trasferta</h6></div>
+                        </div>
+                        
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ history_away['goals']['for']['average']['home'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Media Gol Fatti</span></div>
+                          <div class="col-3"><h6>{{ history_away['goals']['for']['average']['away'] }}</h6></div>
+                        </div>
+                    
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ history_away['goals']['against']['average']['home'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Media Gol Subiti</span></div>
+                          <div class="col-3"><h6>{{ history_away['goals']['against']['average']['away'] }}</h6></div>
+                        </div>
+                    
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ history_away['biggest']['wins']['home'] | default("N/A", boolean=True) }}</h6>
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Miglior Vittoria</span></div>
+                          <div class="col-3">
+                            <h6>{{ history_away['biggest']['wins']['away'] | default("N/A", boolean=True) }}</h6>
+                          </div>
+                        </div>
+
+                    
+                        <div class="row text-center">
+                          <div class="col-3">
+                            <h6>{{ history_away['biggest']['loses']['home'] | default("N/A", boolean=True) }}</h6>
+                          </div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Peggior Sconfitta</span></div>
+                          <div class="col-3">
+                            <h6>{{ history_away['biggest']['loses']['away'] | default("N/A", boolean=True) }}</h6>
+                          </div>
+                        </div>
+
+                    
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ history_away['clean_sheet']['home'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Clean Sheet</span></div>
+                          <div class="col-3"><h6>{{ history_away['clean_sheet']['away'] }}</h6></div>
+                        </div>
+                    
+                        <div class="row text-center">
+                          <div class="col-3"><h6>{{ history_away['failed_to_score']['home'] }}</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Senza Segnare</span></div>
+                          <div class="col-3"><h6>{{ history_away['failed_to_score']['away'] }}</h6></div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- End Home History -->       
+            
+<!-- Box Gol per Minuto con Chart.js -->
+<div class="col-xxl-12 col-xl-12">
+  <div class="card info-card customers-card">
+    <div class="card-body">
+      <h5 class="card-title">Gol per Minuto <span>| {{ team_away }}</span></h5>
+
+      <!-- Chart.js Bar Chart -->
+      <canvas id="barChartAway" style="max-height: 400px;"></canvas>
+    </div>
+  </div>
+</div><!-- End Gol per Minuto Box -->
+
+<!-- Script per Chart.js -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    new Chart(document.querySelector('#barChartAway'), {
+      type: 'bar',
+      data: {
+        labels: ['0-15\'', '16-30\'', '31-45\'', '46-60\'', '61-75\'', '76-90\'', '91-105\''],
+        datasets: [{
+          label: 'Gol segnati',
+          data: [
+  {{ goal_minute_away['0-15']['total'] if goal_minute_away['0-15'] and goal_minute_away['0-15']['total'] is not none else 0 }},
+  {{ goal_minute_away['16-30']['total'] if goal_minute_away['16-30'] and goal_minute_away['16-30']['total'] is not none else 0 }},
+  {{ goal_minute_away['31-45']['total'] if goal_minute_away['31-45'] and goal_minute_away['31-45']['total'] is not none else 0 }},
+  {{ goal_minute_away['46-60']['total'] if goal_minute_away['46-60'] and goal_minute_away['46-60']['total'] is not none else 0 }},
+  {{ goal_minute_away['61-75']['total'] if goal_minute_away['61-75'] and goal_minute_away['61-75']['total'] is not none else 0 }},
+  {{ goal_minute_away['76-90']['total'] if goal_minute_away['76-90'] and goal_minute_away['76-90']['total'] is not none else 0 }},
+  {{ goal_minute_away['91-105']['total'] if goal_minute_away['91-105'] and goal_minute_away['91-105']['total'] is not none else 0 }}
+],
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(201, 203, 207, 0.6)'
+          ],
+          borderColor: [
+            'rgb(54, 162, 235)',
+            'rgb(75, 192, 192)',
+            'rgb(255, 206, 86)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 99, 132)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  });
+</script>
+
+<!-- Grafico: Gol Subiti per Minuto -->
+<div class="col-xxl-12 col-xl-12">
+  <div class="card info-card customers-card">
+    <div class="card-body">
+      <h5 class="card-title">Gol Subiti per Minuto <span>| {{ team_away }}</span></h5>
+
+      <!-- Canvas per il grafico a torta -->
+      <canvas id="pieChartGoalsAgainstAway" style="max-height: 400px;"></canvas>
+    </div>
+  </div>
+</div><!-- End Gol Subiti per Minuto Box -->
+
+<!-- Script per il grafico a torta -->
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script> <!-- Carica il plugin per le etichette -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    new Chart(document.querySelector('#pieChartGoalsAgainstAway'), {
+      type: 'pie',
+      data: {
+        labels: [
+  '0-15\' (' + ({{ goal_minute_subiti_away['0-15']['percentage'].replace('%', '')|float if goal_minute_subiti_away['0-15'] and goal_minute_subiti_away['0-15']['percentage'] is not none else 0 }}) + '%)',
+  '16-30\' (' + ({{ goal_minute_subiti_away['16-30']['percentage'].replace('%', '')|float if goal_minute_subiti_away['16-30'] and goal_minute_subiti_away['16-30']['percentage'] is not none else 0 }}) + '%)',
+  '31-45\' (' + ({{ goal_minute_subiti_away['31-45']['percentage'].replace('%', '')|float if goal_minute_subiti_away['31-45'] and goal_minute_subiti_away['31-45']['percentage'] is not none else 0 }}) + '%)',
+  '46-60\' (' + ({{ goal_minute_subiti_away['46-60']['percentage'].replace('%', '')|float if goal_minute_subiti_away['46-60'] and goal_minute_subiti_away['46-60']['percentage'] is not none else 0 }}) + '%)',
+  '61-75\' (' + ({{ goal_minute_subiti_away['61-75']['percentage'].replace('%', '')|float if goal_minute_subiti_away['61-75'] and goal_minute_subiti_away['61-75']['percentage'] is not none else 0 }}) + '%)',
+  '76-90\' (' + ({{ goal_minute_subiti_away['76-90']['percentage'].replace('%', '')|float if goal_minute_subiti_away['76-90'] and goal_minute_subiti_away['76-90']['percentage'] is not none else 0 }}) + '%)',
+  '91-105\' (' + ({{ goal_minute_subiti_away['91-105']['percentage'].replace('%', '')|float if goal_minute_subiti_away['91-105'] and goal_minute_subiti_away['91-105']['percentage'] is not none else 0 }}) + '%)'
+]
+,
+        datasets: [{
+          label: 'Gol Subiti',
+          data: [
+  {{ goal_minute_subiti_away['0-15']['percentage'].replace('%', '')|float if goal_minute_subiti_away['0-15'] and goal_minute_subiti_away['0-15']['percentage'] is not none else 0 }},
+  {{ goal_minute_subiti_away['16-30']['percentage'].replace('%', '')|float if goal_minute_subiti_away['16-30'] and goal_minute_subiti_away['16-30']['percentage'] is not none else 0 }},
+  {{ goal_minute_subiti_away['31-45']['percentage'].replace('%', '')|float if goal_minute_subiti_away['31-45'] and goal_minute_subiti_away['31-45']['percentage'] is not none else 0 }},
+  {{ goal_minute_subiti_away['46-60']['percentage'].replace('%', '')|float if goal_minute_subiti_away['46-60'] and goal_minute_subiti_away['46-60']['percentage'] is not none else 0 }},
+  {{ goal_minute_subiti_away['61-75']['percentage'].replace('%', '')|float if goal_minute_subiti_away['61-75'] and goal_minute_subiti_away['61-75']['percentage'] is not none else 0 }},
+  {{ goal_minute_subiti_away['76-90']['percentage'].replace('%', '')|float if goal_minute_subiti_away['76-90'] and goal_minute_subiti_away['76-90']['percentage'] is not none else 0 }},
+  {{ goal_minute_subiti_away['91-105']['percentage'].replace('%', '')|float if goal_minute_subiti_away['91-105'] and goal_minute_subiti_away['91-105']['percentage'] is not none else 0 }}
+]
+,  // Percentuali (come numeri) dei gol subiti
+          backgroundColor: [
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(255, 159, 64, 0.6)',
+            'rgba(255, 99, 132, 0.6)',
+            'rgba(153, 102, 255, 0.6)',
+            'rgba(201, 203, 207, 0.6)'
+          ],
+          borderColor: [
+            'rgb(54, 162, 235)',
+            'rgb(75, 192, 192)',
+            'rgb(255, 206, 86)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 99, 132)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                return tooltipItem.label + ': ' + tooltipItem.raw.toFixed(2) + '%'; // Mostra la percentuale nel tooltip
+              }
+            }
+          },
+          datalabels: {
+            color: 'white',
+            font: {
+              weight: 'bold',
+              size: 14
+            },
+            formatter: function(value, ctx) {
+              return value.toFixed(2) + '%'; // Mostra la percentuale sul grafico
+            }
+          }
+        }
+      }
+    });
+  });
+</script>
+
+          <!-- Cartellini Card -->
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Grafico Cartellini</h5>
+          
+                <!-- Cartellini Chart -->
+                <div id="cartelliniAway"></div>
+          
+                <script>
+                  document.addEventListener("DOMContentLoaded", () => {
+                    new ApexCharts(document.querySelector("#cartelliniAway"), {
+                      series: [{
+                        name: 'Gialli',
+                        data: [
+                          {{ cards_away['yellow']['0-15']['total'] if cards_away['yellow']['0-15']['total'] is not none else 0 }},
+                      {{ cards_away['yellow']['16-30']['total'] if cards_away['yellow']['16-30']['total'] is not none else 0 }},
+                      {{ cards_away['yellow']['31-45']['total'] if cards_away['yellow']['31-45']['total'] is not none else 0 }},
+                    {{ cards_away['yellow']['46-60']['total'] if cards_away['yellow']['46-60']['total'] is not none else 0 }},
+                    {{ cards_away['yellow']['61-75']['total'] if cards_away['yellow']['61-75']['total'] is not none else 0 }},
+                    {{ cards_away['yellow']['76-90']['total'] if cards_away['yellow']['76-90']['total'] is not none else 0 }},
+                    {{ cards_away['yellow']['91-105']['total'] if cards_away['yellow']['91-105']['total'] is not none else 0 }},
+                    {{ cards_away['yellow']['106-120']['total'] if cards_away['yellow']['106-120']['total'] is not none else 0 }}
+                                          ]
+                                        }, {
+                      name: 'Rossi',
+                      data: [
+                        {{ cards_away['red']['0-15']['total'] if cards_away['red']['0-15']['total'] is not none else 0 }},
+                    {{ cards_away['red']['16-30']['total'] if cards_away['red']['16-30']['total'] is not none else 0 }},
+                    {{ cards_away['red']['31-45']['total'] if cards_away['red']['31-45']['total'] is not none else 0 }},
+                    {{ cards_away['red']['46-60']['total'] if cards_away['red']['46-60']['total'] is not none else 0 }},
+                    {{ cards_away['red']['61-75']['total'] if cards_away['red']['61-75']['total'] is not none else 0 }},
+                    {{ cards_away['red']['76-90']['total'] if cards_away['red']['76-90']['total'] is not none else 0 }},
+                    {{ cards_away['red']['91-105']['total'] if cards_away['red']['91-105']['total'] is not none else 0 }},
+                    {{ cards_away['red']['106-120']['total'] if cards_away['red']['106-120']['total'] is not none else 0 }}
+                                          ]
+                                        }],
+                    chart: {
+                    type: 'bar',
+                    height: 350,
+                  },
+                    plotOptions: {
+                    bar: {
+                      horizontal: false,
+                      columnWidth: '90%',
+                      endingShape: 'rounded'
+                    },
+                  },
+                    dataLabels: {
+                    enabled: false
+                  },
+                    colors: ['rgba(255, 223, 0, 0.7)', 'rgba(255, 0, 0, 2)'],
+                    stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                  },
+                    xaxis: {
+                    categories: ['0-15', '16-30', '31-45', '46-60', '61-75', '76-90', '91-105', '106-120'],
+                    title: {
+                      text: 'Minuti Giocati'
+                    }
+                  },
+                    yaxis: {
+                    title: {
+                      text: 'Cartellini Totali'
+                    }
+                  },
+                    fill: {
+                    opacity: 50
+                  },
+                    tooltip: {
+                    y: {
+                      formatter: function (val) {
+                        return val
+                      }
+                    }
+                  }
+                                      }).render();
+                                    });
+                </script>
+                <!-- End Cartellini Chart -->
+          
+              </div>
+            </div>
+          </div>
+          <!-- End Cartellini Card -->
+
+          </div>
+
+          </div>
+        </div><!-- End Right side columns -->
+
+      </div>
+    </section>
+   
+  </main><!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Football Masters</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+        Designed by Maurizio Polverini - <a href="https://www.app-eleven.it/">App Eleven</a>
+      </div>
+    </footer><!-- End Footer -->
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{{ url_for('static', filename='vendor/apexcharts/apexcharts.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/chart.js/chart.umd.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/echarts/echarts.min.js') }}"></script> <!-- [MAU] corretto con url_for -->
+  <script src="{{ url_for('static', filename='vendor/quill/quill.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/simple-datatables/simple-datatables.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/tinymce/tinymce.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/php-email-form/validate.js') }}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
+</body>
+
+</html>

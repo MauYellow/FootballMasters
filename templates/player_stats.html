@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Dashboard - NiceAdmin Bootstrap Template</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="icon">
+    <link href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/quill/quill.snow.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/quill/quill.bubble.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/simple-datatables/style.css') }}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+    <!-- JavaScript Files -->
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- Images -->
+    <img src="{{ url_for('static', filename='img/profile-img.jpg') }}" alt="Profile Image">
+
+
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Updated: Apr 20 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="/" class="logo d-flex align-items-center">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" width="30" height="100">
+                <span class="d-none d-lg-block">Football Masters</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div><!-- End Logo -->
+    </header><!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link " href="/">
+                    <i class="bi bi-grid"></i>
+                    <span>Home</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-heading">In programma</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Matches</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ url_for('get_matches', league_id=2) }}">
+                            <i class="bi bi-circle"></i><span>Champions League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_matches', league_id=3) }}">
+                            <i class="bi bi-circle"></i><span>Europa League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="matches">
+                            <i class="bi bi-circle"></i><span>Seria A</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_matches', league_id=39) }}">
+                            <i class="bi bi-circle"></i><span>Premier League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_matches', league_id=140) }}">
+                            <i class="bi bi-circle"></i><span>La Liga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_matches', league_id=78) }}">
+                            <i class="bi bi-circle"></i><span>Bundesliga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_matches', league_id=61) }}">
+                            <i class="bi bi-circle"></i><span>Ligue 1</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Components Nav -->
+
+            <li class="nav-heading">Campionati</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#campionati-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-calendar3"></i><span>Calendario</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="campionati-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ url_for('leagues', league=2, season=current_season) }}">
+                            <i class="bi bi-circle"></i><span>Champions League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('leagues', league=3, season=current_season) }}">
+                            <i class="bi bi-circle"></i><span>Europa League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('leagues', league=135, season=current_season) }}">
+                            <i class="bi bi-circle"></i><span>Serie A</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('leagues', league=39, season=current_season) }}">
+                            <i class="bi bi-circle"></i><span>Premier League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('leagues', league=140, season=current_season) }}">
+                            <i class="bi bi-circle"></i><span>La Liga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('leagues', league=78, season=current_season) }}">
+                            <i class="bi bi-circle"></i><span>Bundesliga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('leagues', league=61, season=current_season) }}">
+                            <i class="bi bi-circle"></i><span>Ligue 1</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Campionati Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#classifiche-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-bar-chart"></i><span>Classifiche</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="classifiche-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ url_for('standings', league=2, season=current_season) }}">
+                            <i class="bi bi-circle"></i><span>Champions League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('standings', league=3, season=current_season) }}">
+                            <i class="bi bi-circle"></i><span>Europa League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('standings', league=135, season=current_season) }}">
+                            <i class="bi bi-circle"></i><span>Serie A</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('standings', league=39, season=current_season) }}">
+                            <i class="bi bi-circle"></i><span>Premier League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('standings', league=140, season=current_season) }}">
+                            <i class="bi bi-circle"></i><span>La Liga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('standings', league=78, season=current_season) }}">
+                            <i class="bi bi-circle"></i><span>Bundesliga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('standings', league=61, season=current_season) }}">
+                            <i class="bi bi-circle"></i><span>Ligue 1</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Classifiche Nav -->
+
+
+            <li class="nav-heading">Top 20</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#topscorer-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-award"></i><span>Top Scorer</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="topscorer-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ url_for('get_topscorer', league_id=2) }}">
+                            <i class="bi bi-circle"></i><span>Champions League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topscorer', league_id=3) }}">
+                            <i class="bi bi-circle"></i><span>Europa League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topscorer', league_id=135) }}">
+                            <i class="bi bi-circle"></i><span>Serie A</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topscorer', league_id=39) }}">
+                            <i class="bi bi-circle"></i><span>Premier League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topscorer', league_id=140) }}">
+                            <i class="bi bi-circle"></i><span>La Liga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topscorer', league_id=78) }}">
+                            <i class="bi bi-circle"></i><span>Bundesliga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topscorer', league_id=61) }}">
+                            <i class="bi bi-circle"></i><span>Ligue 1</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <a class="nav-link collapsed" data-bs-target="#topassist-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-gem"></i><span>Top Assist</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="topassist-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ url_for('get_topassists', league_id=2) }}">
+                            <i class="bi bi-circle"></i><span>Champions League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topassists', league_id=3) }}">
+                            <i class="bi bi-circle"></i><span>Europa League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topassists', league_id=135) }}">
+                            <i class="bi bi-circle"></i><span>Serie A</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topassists', league_id=39) }}">
+                            <i class="bi bi-circle"></i><span>Premier League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topassists', league_id=140) }}">
+                            <i class="bi bi-circle"></i><span>La Liga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topassists', league_id=78) }}">
+                            <i class="bi bi-circle"></i><span>Bundesliga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topassists', league_id=61) }}">
+                            <i class="bi bi-circle"></i><span>Ligue 1</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <a class="nav-link collapsed" data-bs-target="#topgialli-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-file"></i><span>Top Cartellini Gialli</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="topgialli-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ url_for('get_topyellowcards', league_id=2) }}">
+                            <i class="bi bi-circle"></i><span>Champions League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topyellowcards', league_id=3) }}">
+                            <i class="bi bi-circle"></i><span>Europa League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topyellowcards', league_id=135) }}">
+                            <i class="bi bi-circle"></i><span>Serie A</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topyellowcards', league_id=39) }}">
+                            <i class="bi bi-circle"></i><span>Premier League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topyellowcards', league_id=140) }}">
+                            <i class="bi bi-circle"></i><span>La Liga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topyellowcards', league_id=78) }}">
+                            <i class="bi bi-circle"></i><span>Bundesliga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topyellowcards', league_id=61) }}">
+                            <i class="bi bi-circle"></i><span>Ligue 1</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <a class="nav-link collapsed" data-bs-target="#toprossi-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-back"></i><span>Top Cartellini Rossi</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="toprossi-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ url_for('get_topredcards', league_id=2) }}">
+                            <i class="bi bi-circle"></i><span>Champions League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topredcards', league_id=3) }}">
+                            <i class="bi bi-circle"></i><span>Europa League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topredcards', league_id=135) }}">
+                            <i class="bi bi-circle"></i><span>Serie A</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topredcards', league_id=39) }}">
+                            <i class="bi bi-circle"></i><span>Premier League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topredcards', league_id=140) }}">
+                            <i class="bi bi-circle"></i><span>La Liga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topredcards', league_id=78) }}">
+                            <i class="bi bi-circle"></i><span>Bundesliga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('get_topredcards', league_id=61) }}">
+                            <i class="bi bi-circle"></i><span>Ligue 1</span>
+                        </a>
+                    </li>
+                </ul>
+
+            </li><!-- End Icons Nav -->
+
+            <li class="nav-heading">Trasferimenti</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#transfers-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-arrow-repeat"></i><span>Movimenti di mercato</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="transfers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="icons-bootstrap.html">
+                            <i class="bi bi-circle"></i><span>Serie A</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="icons-remixx.html">
+                            <i class="bi bi-circle"></i><span>Premier League</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="icons-boxicons.html">
+                            <i class="bi bi-circle"></i><span>La Liga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="icons-boxicons.html">
+                            <i class="bi bi-circle"></i><span>Bundesliga</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="icons-boxicons.html">
+                            <i class="bi bi-circle"></i><span>Ligue 1</span>
+                        </a>
+                    </li>
+                </ul>
+
+            <li class="nav-heading">Termini e Condizioni</li>
+
+            <li class="nav-item">
+            <li>
+                <a href="/termini_e_condizioni">
+                    <i class="bi bi-file-earmark-ruled"></i><span> Leggimi</span>
+                </a>
+            </li>
+            </li>
+        </ul>
+
+
+
+    </aside><!-- End Sidebar-->
+
+    <main id="main" class="main">
+
+        <div class="pagetitle d-flex align-items-center">
+            <!-- Foto a sinistra -->
+            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center me-3">
+                <img src="{{ data.player.photo }}" alt="foot-ball"
+                    style="border: 1mm solid black; border-radius: 50%;" />
+            </div>
+
+            <!-- Contenitore a destra per nome, squadra e presenze -->
+            <div class="d-flex flex-column">
+                <h1 class="mb-0">{{ data.player.lastname }}, {{ data.player.firstname }}</h1>
+                <h2 class="mb-0" style="font-size: 20px;">
+                    <span>{{ data.player.nationality }}, {{ data.player.weight }}, {{ data.player.height }}</span>
+                </h2>
+
+                <!-- Contenitore flessibile per immagine + testo -->
+                <div class="d-flex align-items-center">
+                    <img src="{{ data.statistics.0.team.logo }}"
+                        style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover;">
+                    <a href="{{ url_for('team_stats', team_id=data.statistics.0.team.id, league_id=data.statistics.0.league.id) }}"
+                        class="ms-2">
+                        <h2 class="mb-0">{{ data.statistics.0.team.name }}</h2>
+                    </a>
+                </div>
+            </div>
+        </div><!-- End Page Title -->
+
+        <section class="section dashboard">
+            <div class="row">
+
+                <!-- Left side columns -->
+                <div class="col-lg-8">
+                    <div class="row">
+
+                        <!-- Goal Card -->
+                        <div class="col-xxl-4 col-md-6">
+                            <div class="card info-card sales-card">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <!-- Titolo della card -->
+                                    <h5 class="card-title">Goal su azione <span>| su rigore</span></h5>
+
+                                    <!-- Prima riga: Icona a sinistra e valore goal a destra -->
+                                    <div class="row mb-3">
+                                        <div class="col-6 d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <img src="{{ url_for('static', filename='img/foot-ball.png') }}"
+                                                    alt="foot-ball" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-end align-items-center">
+                                            <h6 class="card-title">
+                                                {{ (( data.statistics.0.goals.total or 0 ) - (
+                                                data.statistics.0.penalty.scored or 0 ) ) }}
+
+                                                <span>| {{ data.statistics.0.penalty.scored | default(0) }}</span>
+                                            </h6>
+                                        </div>
+                                    </div>
+
+                                    <!-- Seconda riga: Dati aggiuntivi con valori bold, ma stesso font e colore -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Totale gol a partita</div>
+                                                <div>
+                                                    <strong class="card-title">
+                                                        {{ ((data.statistics.0.goals.total or 0) /
+                                                        (data.statistics.0.games.appearences or 1)) | float | round(2)
+                                                        }}
+                                                    </strong>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Frequenza gol in minuti</div>
+                                                <div>
+                                                    <strong class="card-title">
+                                                        {{ ((data.statistics.0.games.minutes or 0) /
+                                                        ((data.statistics.0.goals.total or 0) if
+                                                        (data.statistics.0.goals.total or 0) > 0 else 1)) | float |
+                                                        round(2) }}
+                                                    </strong>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">% Gol in un match</div>
+                                                <div>
+                                                    <strong class="card-title">
+                                                        {{ (((data.statistics.0.goals.total or 0) /
+                                                        (data.statistics.0.games.appearences or 1)) * 100) | float |
+                                                        round(2) }}%
+                                                    </strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End Goal Card -->
+
+                        <!-- Assist Card -->
+                        <div class="col-xxl-4 col-md-6 d-flex">
+                            <div class="card info-card revenue-card flex-fill">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Assist <span>| Passaggi Chiave</span></h5>
+
+                                    <!-- Prima riga: Icona a sinistra e valore assist a destra -->
+                                    <div class="row mb-3">
+                                        <div class="col-6 d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <img src="{{ url_for('static', filename='img/key.png') }}" alt="key" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-end align-items-center">
+                                            <h6 class="card-title">{{ data.statistics.0.goals.assists }}<span> | {{
+                                                    data.statistics.0.passes.key }}</span></h6>
+                                            <!-- Mantenuto lo stesso font e colore del titolo -->
+                                        </div>
+                                    </div>
+
+                                    <!-- Seconda riga: Dati aggiuntivi con valori bold, ma stesso font e colore -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Assist a partita</div>
+                                                <div><strong class="card-title">
+                                                        {{ ((data.statistics.0.goals.assists or 0) /
+                                                        (data.statistics.0.games.appearences or 1)) | float | round(2)
+                                                        }}
+                                                    </strong>
+                                                </div> <!-- Mantenuto lo stesso font e colore del titolo -->
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Passaggi chiave a partita</div>
+                                                <div><strong class="card-title">
+                                                        {{ ((data.statistics.0.passes.key or 0) /
+                                                        (data.statistics.0.games.appearences or 1)) | float | round(2)
+                                                        }}
+                                                    </strong>
+                                                </div> <!-- Mantenuto lo stesso font e colore del titolo -->
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Percentuale di assist a partita</div>
+                                                <div><strong class="card-title">{{ (((data.statistics.0.goals.assists or
+                                                        0) / (data.statistics.0.games.appearences or 1)) * 100) | float
+                                                        |
+                                                        round(2) }}%</strong></div>
+                                                <!-- Mantenuto lo stesso font e colore del titolo -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End Assist Card -->
+
+                        <!-- Tiri Card -->
+                        <div class="col-xxl-4 col-md-6 d-flex">
+                            <div class="card info-card revenue-card flex-fill">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Tiri in porta <span>| Totali</span></h5>
+
+                                    <!-- Prima riga: Icona a sinistra e valore tiri a destra -->
+                                    <div class="row mb-3">
+                                        <div class="col-6 d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <img src="{{ url_for('static', filename='img/key.png') }}"
+                                                    alt="foot-ball" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-end align-items-center">
+                                            <h6 class="card-title">{{ data.statistics.0.shots.on or 0 }} <span>| {{
+                                                    data.statistics.0.shots.total or 0 }}</span></h6>
+                                        </div>
+                                    </div>
+
+                                    <!-- Seconda riga: Dati aggiuntivi con valori bold, ma stesso font e colore -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Tiri in porta a Partita | Totali</div>
+                                                <div><strong class="card-title">{{ ((data.statistics.0.shots.on or 0) /
+                                                        (data.statistics.0.games.appearences or 1)) | float | round(2)
+                                                        }} | {{ ((data.statistics.0.shots.total or 0) /
+                                                        (data.statistics.0.games.appearences or 1)) | float | round(2)
+                                                        }}</strong></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">% Tiri in Porta in Tiri Totali</div>
+                                                <div><strong class="card-title">{{ ((data.statistics.0.shots.on or 0) /
+                                                        (data.statistics.0.shots.total or 1) * 100 ) | float | round(2)
+                                                        }}%</strong></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">% Tiri in Porta per Gol</div>
+                                                <div><strong class="card-title">
+                                                        {% if data.statistics.0.goals.total or 0 > 0 %}
+                                                        {{ ((data.statistics.0.goals.total or 0) /
+                                                        (data.statistics.0.shots.on or 1) * 100 ) | float | round(2) }}%
+                                                        {% else %}
+                                                        N/A
+                                                        {% endif %}
+                                                    </strong></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div><!-- End Tiri Card -->
+
+                        <!-- Passaggi Card -->
+                        <div class="col-xxl-4 col-md-6 d-flex">
+                            <div class="card info-card revenue-card flex-fill">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Passaggi<span></span></h5>
+
+                                    <!-- Prima riga: Icona a sinistra e valore passaggi a destra -->
+                                    <div class="row mb-3">
+                                        <div class="col-6 d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <img src="{{ url_for('static', filename='img/key.png') }}"
+                                                    alt="foot-ball" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-end align-items-center">
+                                            <h6 class="card-title">{{ data.statistics.0.passes.total }}</h6>
+                                        </div>
+                                    </div>
+
+                                    <!-- Seconda riga: Dati aggiuntivi con valori bold, ma stesso font e colore -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Passaggi medi a partita</div>
+                                                <div><strong class="card-title">{{ ((data.statistics.0.passes.total or
+                                                        0) / (data.statistics.0.games.appearences or 1)) | float |
+                                                        round(2) }}</strong></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Accuratezza %</div>
+                                                <div><strong class="card-title">
+                                                        {% if data.statistics[0].passes.accuracy is not none %}
+                                                        {{ data.statistics[0].passes.accuracy }}%
+                                                        {% else %}
+                                                        N/A
+                                                        {% endif %}
+                                                    </strong></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div><!-- End Passaggi Card -->
+
+                        <!-- Falli Card -->
+                        <div class="col-xxl-4 col-md-6 d-flex">
+                            <div class="card info-card customers-card flex-fill">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Falli fatti <span>| Falli subiti</span></h5>
+
+                                    <!-- Prima riga: Icona a sinistra e valore falli a destra -->
+                                    <div class="row mb-3">
+                                        <div class="col-6 d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-people"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-end align-items-center">
+                                            <h6 class="card-title">{{ data.statistics.0.fouls.committed }}<span> | {{
+                                                    data.statistics.0.fouls.drawn }}</span></h6>
+                                        </div>
+                                    </div>
+
+                                    <!-- Seconda riga: Dati aggiuntivi con valori bold, ma stesso font e colore -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Falli fatti a partita</div>
+                                                <div><strong class="card-title">{{ ((data.statistics.0.fouls.committed
+                                                        or 0) / (data.statistics.0.games.appearences or 1)) | float |
+                                                        round(2) }}</strong></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Falli subiti partita</div>
+                                                <div><strong class="card-title">{{ ((data.statistics.0.fouls.drawn or 0)
+                                                        / (data.statistics.0.games.appearences or 1)) | float | round(2)
+                                                        }}</strong></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div><!-- End Falli Card -->
+
+                        <!-- Contrasti Card -->
+                        <div class="col-xxl-4 col-md-6 d-flex">
+                            <div class="card info-card revenue-card flex-fill">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Contrasti <span></span></h5>
+
+                                    <!-- Prima riga: Icona a sinistra e valore dei contrasti a destra -->
+                                    <div class="row mb-3">
+                                        <div class="col-6 d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <img src="{{ url_for('static', filename='img/key.png') }}"
+                                                    alt="foot-ball" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-end align-items-center">
+                                            <h6 class="card-title">{{ data.statistics.0.tackles.total }}</h6>
+                                        </div>
+                                    </div>
+
+                                    <!-- Seconda riga: Dati aggiuntivi con valori bold, ma stesso font e colore -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Contrasti a partita</div>
+                                                <div><strong class="card-title">{{ ((data.statistics.0.tackles.total or
+                                                        0) / (data.statistics.0.games.appearences or 1)) | float |
+                                                        round(2) }}</strong></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Blocchi totali</div>
+                                                <div><strong class="card-title">{{ data.statistics.0.tackles.blocks or
+                                                        'N/A' }}</strong></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Intercettazioni totali</div>
+                                                <div><strong class="card-title">{{
+                                                        data.statistics.0.tackles.interceptions or 'N/A' }}</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div><!-- End Contrasti Card -->
+
+                        <!-- Duelli Card -->
+                        <div class="col-xxl-4 col-md-6 d-flex">
+                            <div class="card info-card revenue-card flex-fill">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Duelli vinti 1 vs 1 <span>| Duelli totali</span></h5>
+
+                                    <!-- Prima riga: Icona a sinistra e valore dei duelli a destra -->
+                                    <div class="row mb-3">
+                                        <div class="col-6 d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <img src="{{ url_for('static', filename='img/key.png') }}"
+                                                    alt="foot-ball" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-end align-items-center">
+                                            <h6 class="card-title">{{ data.statistics.0.duels.won }} <span>| {{
+                                                    data.statistics.0.duels.total }}</span></spa>
+                                            </h6>
+                                        </div>
+                                    </div>
+
+                                    <!-- Seconda riga: Dati aggiuntivi con valori bold, ma stesso font e colore -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">% Duelli vinti</div>
+                                                <div><strong class="card-title">{{ ((data.statistics.0.duels.won or 0) /
+                                                        (data.statistics.0.duels.total or 1) * 100) | float | round(2)
+                                                        }}%</strong></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Duelli vinti a partita</div>
+                                                <div><strong class="card-title">{{ ((data.statistics.0.duels.won or 0) /
+                                                        (data.statistics.0.games.appearences or 1)) | float | round(2)
+                                                        }}</strong></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Duelli Card -->
+
+                        <!-- Dribbling Card -->
+                        <div class="col-xxl-4 col-md-6 d-flex">
+                            <div class="card info-card revenue-card flex-fill">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Dribbling riusciti <span>| Dribbling tentati</span></h5>
+
+                                    <!-- Prima riga: Icona a sinistra e valore dei dribbling a destra -->
+                                    <div class="row mb-3">
+                                        <div class="col-6 d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <img src="{{ url_for('static', filename='img/key.png') }}"
+                                                    alt="foot-ball" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-end align-items-center">
+                                            <h6 class="card-title">{{ data.statistics.0.dribbles.success or 0 }} <span>|
+                                                    {{ data.statistics.0.dribbles.attempts or 0 }}</span></h6>
+                                        </div>
+                                    </div>
+
+                                    <!-- Seconda riga: Dati aggiuntivi con valori bold, ma stesso font e colore -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Dribbling riusciti a partita</div>
+                                                <div><strong class="card-title">{{ ((data.statistics.0.dribbles.success
+                                                        or 0) / (data.statistics.0.games.appearences or 1)) | float |
+                                                        round(2) }}</strong></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Percentuale di riuscita dribbling</div>
+                                                <div><strong class="card-title">{{ ((data.statistics.0.dribbles.success
+                                                        or 0) / (data.statistics.0.dribbles.attempts or 1) * 100 ) |
+                                                        float | round(2) }}%</strong></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Dribbling subiti</div>
+                                                <div><strong class="card-title">
+                                                        {% if data.statistics[0].dribbles.past is not none %}
+                                                        {{ data.statistics[0].dribbles.past }}%
+                                                        {% else %}
+                                                        N/A
+                                                        {% endif %}
+                                                    </strong></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div><!-- End Dribbling Card -->
+
+
+                        <!-- Cartellini Card -->
+                        <div class="col-xxl-4 col-md-6 d-flex">
+                            <div class="card info-card revenue-card flex-fill">
+
+                                <div class="filter">
+                                    <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                            class="bi bi-three-dots"></i></a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                        <li class="dropdown-header text-start">
+                                            <h6>Filter</h6>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">Today</a></li>
+                                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">Cartellini Gialli<span> | Cartellini Rossi</span></h5>
+
+                                    <!-- Prima riga: Icona a sinistra e valore dei cartellini a destra -->
+                                    <div class="row mb-3">
+                                        <div class="col-6 d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <img src="{{ url_for('static', filename='img/key.png') }}"
+                                                    alt="foot-ball" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6 d-flex justify-content-end align-items-center">
+                                            <h6 class="card-title">{{ data.statistics.0.cards.yellow }}<span> | {{
+                                                    data.statistics.0.cards.red }}</span></h6>
+                                        </div>
+                                    </div>
+
+                                    <!-- Seconda riga: Dati aggiuntivi con valori bold, ma stesso font e colore -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">A Partita</div>
+                                                <div><strong class="card-title">
+                                                        {{ ((data.statistics.0.cards.yellow or 0) /
+                                                        (data.statistics.0.games.appearences or 1)) | float | round(2)
+                                                        }}
+                                                        |
+                                                        {{ ((data.statistics.0.cards.red or 0) /
+                                                        (data.statistics.0.games.appearences or 1)) | float | round(2)
+                                                        }}
+                                                    </strong></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">% Cartellino a partita</div>
+                                                <div><strong class="card-title">
+                                                        {{ ((data.statistics.0.cards.yellow or 0) /
+                                                        (data.statistics.0.games.appearences or 1) * 100) | float |
+                                                        round(2) }}%
+                                                        |
+                                                        {{ ((data.statistics.0.cards.red or 0) /
+                                                        (data.statistics.0.games.appearences or 1) * 100) | float |
+                                                        round(2) }}%
+                                                    </strong></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="text-muted">Falli per cartellino</div>
+                                                <div><strong class="card-title">
+                                                        {{ ((data.statistics.0.cards.yellow or 0) /
+                                                        (data.statistics.0.fouls.committed or 1)) | float | round(2) }}
+                                                        |
+                                                        {{ ((data.statistics.0.cards.red or 0) /
+                                                        (data.statistics.0.fouls.committed or 1)) | float | round(2) }}
+                                                    </strong></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div><!-- End Cartellini Card -->
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Andamento Ultimi 5 Anni</h5>
+
+                                <!-- Ultimi Anni KPI Tabs -->
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="offensive-tab" data-bs-toggle="tab"
+                                            data-bs-target="#offensive" type="button" role="tab"
+                                            aria-controls="offensive" aria-selected="true">Offensivo</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="defensive-tab" data-bs-toggle="tab"
+                                            data-bs-target="#defensive" type="button" role="tab"
+                                            aria-controls="defensive" aria-selected="false">Difensivo</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="goalkeeper-tab" data-bs-toggle="tab"
+                                            data-bs-target="#goalkeeper" type="button" role="tab"
+                                            aria-controls="goalkeeper" aria-selected="false">Portiere*</button>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content pt-2" id="myTabContent">
+
+                                    <!-- Offensivo Tab -->
+                                    <div class="tab-pane fade show active" id="offensive" role="tabpanel"
+                                        aria-labelledby="offensive-tab">
+                                        <h5 class="card-title">Offensivo <span>| K.P.I.</span></h5>
+
+                                        <!-- Line Chart for Offensivo -->
+                                        <div id="reportsChart"></div>
+
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", () => {
+                                                new ApexCharts(document.querySelector("#reportsChart"), {
+                                                    series: [{
+                                                        name: 'Goals',
+                                                        data: [
+                                                            {{ data_4.statistics.0.goals.total or 0 }},
+                                                    {{ data_3.statistics.0.goals.total or 0 }},
+                                                    {{ data_2.statistics.0.goals.total or 0 }},
+                                                {{ data_1.statistics.0.goals.total or 0 }},
+                                                {{ data.statistics.0.goals.total or 0 }}
+                        ],
+                      }, {
+                                                    name: 'Assists',
+                                                    data: [
+                                                        {{ data_4.statistics.0.goals.assists or 0 }},
+                                                {{ data_3.statistics.0.goals.assists or 0 }},
+                                                {{ data_2.statistics.0.goals.assists or 0 }},
+                                                {{ data_1.statistics.0.goals.assists or 0 }},
+                                                {{ data.statistics.0.goals.assists or 0 }}
+                        ]
+                      }, {
+                                                    name: 'Rating',
+                                                    data: [
+                                                        {{ data_4.statistics.0.games.rating | float | default(0.00) | round(2) }},
+                                                {{ data_3.statistics.0.games.rating | float | default(0.00) | round(2) }},
+                                                {{ data_2.statistics.0.games.rating | float | default(0.00) | round(2) }},
+                                                {{ data_1.statistics.0.games.rating | float | default(0.00) | round(2) }},
+                                                {{ data.statistics.0.games.rating | float | default(0.00) | round(2) }}
+                        ]
+                      }],
+                                                chart: {
+                                                height: 350,
+                                                type: 'area',
+                                                toolbar: {
+                                                    show: false
+                                                },
+                                                zoom: {
+                                                    enabled: false  // Disabilita lo zoom
+                                                },
+                                            },
+                                                markers: {
+                                                size: 4
+                                            },
+                                                colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                                                fill: {
+                                                type: "gradient",
+                                                gradient: {
+                                                    shadeIntensity: 1,
+                                                    opacityFrom: 0.3,
+                                                    opacityTo: 0.4,
+                                                    stops: [0, 90, 100]
+                                                }
+                                            },
+                                                dataLabels: {
+                                                enabled: false
+                                            },
+                                                stroke: {
+                                                curve: 'smooth',
+                                                width: 2
+                                            },
+                                                xaxis: {
+                                                type: 'category',  // Cambia da 'datetime' a 'category' per gestire gli anni
+                                                categories: ["{{ current_season - 4 }}", "{{ current_season - 3 }}", "{{ current_season - 2 }}", "{{ current_season - 1 }}", "{{ current_season }}"],  // Le categorie per gli anni
+                                                tickAmount: 5,  // Assicura che solo 5 categorie vengano mostrate
+                                                labels: {
+                                                    rotate: 0  // Rimuove la rotazione delle etichette
+                                                },
+                                            },
+                                                tooltip: {
+                                                x: {
+                                                    format: 'yyyy'
+                                                },
+                                            }
+                    }).render();
+                  });
+                                        </script>
+                                        <!-- End Line Chart -->
+                                    </div>
+
+                                    <!-- Difensivo Tab -->
+                                    <div class="tab-pane fade" id="defensive" role="tabpanel"
+                                        aria-labelledby="defensive-tab">
+                                        <!-- Contenuto del grafico difensivo qui -->
+                                        <h5>Grafico Difensivo (a inserire)</h5>
+                                    </div>
+
+                                    <!-- Portiere Tab -->
+                                    <div class="tab-pane fade" id="goalkeeper" role="tabpanel"
+                                        aria-labelledby="goalkeeper-tab">
+                                        <!-- Contenuto del grafico portiere qui -->
+                                        <h5>Grafico Portiere (a inserire)</h5>
+                                    </div>
+
+                                </div><!-- End Default Tabs -->
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div><!-- End Left side columns -->
+
+                <!-- Right side columns -->
+                <div class="col-lg-4">
+
+                    <!-- Recent Activity -->
+                    <div class="card">
+                        <div class="filter">
+                            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <h6>Filter</h6>
+                                </li>
+
+                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">Presenze <span>| Stagionali</span></h5>
+
+                            <div class="activity">
+
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">{{ data.statistics.0.games.minutes }}</div>
+                                    <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                                    <div class="activity-content">
+                                        Minuti giocati in stagione
+                                    </div>
+                                </div><!-- End activity item-->
+
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">{{ data.statistics.0.games.appearences }}</div>
+                                    <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                                    <div class="activity-content">
+                                        Presenze totali
+                                    </div>
+                                </div><!-- End activity item-->
+
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">{{ data.statistics.0.games.lineups }}</div>
+                                    <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
+                                    <div class="activity-content">
+                                        Presenze da titolare
+                                    </div>
+                                </div><!-- End activity item-->
+
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">{{ data.statistics.0.substitutes.in }}</div>
+                                    <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
+                                    <div class="activity-content">
+                                        Presenze da subentrante
+                                    </div>
+                                </div><!-- End activity item-->
+
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">{{ data.statistics.0.substitutes.out }}</div>
+                                    <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                                    <div class="activity-content">
+                                        Totale delle volte in cui è stato sostituito
+                                    </div>
+                                </div><!-- End activity item-->
+
+                                <div class="activity-item d-flex">
+                                    <div class="activite-label">
+                                        {{ data.statistics.0.games.rating | float | default(0.00) | round(2) }}
+                                    </div>
+                                    <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
+                                    <div class="activity-content">
+                                        Rating medio stagionale
+                                    </div>
+                                </div><!-- End activity item-->
+
+                            </div>
+
+                        </div>
+                    </div><!-- End Recent Activity -->
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Performance Radar</h5>
+
+                            <!-- Tabs -->
+                            <ul class="nav nav-tabs" id="radarTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="spider-offensive-tab" data-bs-toggle="tab"
+                                        data-bs-target="#spider-offensivo" type="button" role="tab"
+                                        aria-controls="spider-offensivo" aria-selected="true">Offensivo</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="spider-defensive-tab" data-bs-toggle="tab"
+                                        data-bs-target="#spider-difensivo" type="button" role="tab"
+                                        aria-controls="spider-difensivo" aria-selected="false">Difensivo</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="spider-goalkeeper-tab" data-bs-toggle="tab"
+                                        data-bs-target="#spider-portiere" type="button" role="tab"
+                                        aria-controls="spider-portiere" aria-selected="false">Portiere</button>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content pt-2" id="radarTabsContent">
+                                <!-- Offensivo Tab -->
+                                <div class="tab-pane fade show active" id="spider-offensivo" role="tabpanel">
+                                    <h5 class="card-title">Spider Offensivo</h5>
+                                    <div id="spider-chart-offensivo" style="min-height: 400px;" class="echart"></div>
+                                </div>
+
+                                <!-- Difensivo Tab -->
+                                <div class="tab-pane fade" id="spider-difensivo" role="tabpanel">
+                                    <h5 class="card-title">Spider Difensivo</h5>
+                                    <div id="spider-chart-difensivo" style="min-height: 400px;" class="echart"></div>
+                                </div>
+
+                                <!-- Portiere Tab -->
+                                <div class="tab-pane fade" id="spider-portiere" role="tabpanel">
+                                    <h5 class="card-title">Spider Portiere</h5>
+                                    <div id="spider-chart-portiere" style="min-height: 400px;" class="echart"></div>
+                                </div>
+                            </div><!-- End Tabs -->
+                        </div>
+                    </div>
+
+                    <script>
+                        window.addEventListener("load", () => {
+
+                            function createRadarChart(elementId, indicators, dataCurrent, dataPast) {
+                                let chart = echarts.init(document.querySelector("#" + elementId));
+                                chart.setOption({
+                                    legend: {
+                                        data: ['Stagione in corso', 'Stagione passata']
+                                    },
+                                    radar: {
+                                        indicator: indicators
+                                    },
+                                    series: [{
+                                        name: 'Performance',
+                                        type: 'radar',
+                                        areaStyle: {},
+                                        data: [
+                                            {
+                                                value: dataCurrent,
+                                                name: 'Stagione in corso',
+                                                itemStyle: { color: 'rgb(255, 106, 86)' },
+                                                areaStyle: { color: 'rgba(255, 206, 86, 0.1)' }
+                                            },
+                                            {
+                                                value: dataPast,
+                                                name: 'Stagione passata',
+                                                itemStyle: { color: 'rgb(75, 192, 75)' },
+                                                areaStyle: { color: 'rgba(75, 192, 75, 0.1)' }
+                                            }
+                                        ]
+                                    }]
+                                });
+                            }
+
+                            let loadedCharts = {
+                                "spider-chart-offensivo": false,
+                                "spider-chart-difensivo": false,
+                                "spider-chart-portiere": false
+                            };
+
+                            function loadChart(chartId, indicators, dataCurrent, dataPast) {
+                                if (!loadedCharts[chartId]) {
+                                    createRadarChart(chartId, indicators, dataCurrent, dataPast);
+                                    loadedCharts[chartId] = true;
+                                }
+                            }
+
+                            // Carica grafico offensivo
+                            loadChart("spider-chart-offensivo", [
+                                { name: 'Realizzazione', max: 100 },
+                                { name: 'Precisione Tiri', max: 100 },
+                                { name: 'Assist', max: 100 },
+                                { name: 'Dribbling', max: 100 },
+                                { name: '% Duelli Vinti', max: 100 },
+                                { name: 'Rating Stagionale', max: 10 }
+                            ], [
+                        {{ ((data.statistics[0].goals.total or 0) / (data.statistics[0].games.appearences or 1) * 100) | float | round(2) }},
+                        {{ ((data.statistics[0].shots.on or 0) / (data.statistics[0].shots.total or 1) * 100) | float | round(2) }},
+                        {{ 100 if ((data.statistics[0].goals.assists or 0) / (data.statistics[0].games.appearences or 1) * 100) > 100 else ((data.statistics[0].goals.assists or 0) / (data.statistics[0].games.appearences or 1) * 100) | float | round(2) }},
+                        {{ ((data.statistics[0].dribbles.success or 0) / (data.statistics[0].dribbles.attempts or 1) * 100) | float | round(2) }},
+                        {{ ((data.statistics[0].duels.won or 0) / (data.statistics[0].duels.total or 1) * 100) | float | round(2) }},
+                        {{ data.statistics[0].games.rating | float }}
+                        ], [
+                            {{ ((data_1.statistics[0].goals.total or 0) / (data_1.statistics[0].games.appearences or 1) * 100) | float | round(2) }},
+                            {{ ((data_1.statistics[0].shots.on or 0) / (data_1.statistics[0].shots.total or 1) * 100) | float | round(2) }},
+                            {{ 100 if((data_1.statistics[0].goals.assists or 0) / (data_1.statistics[0].games.appearences or 1) * 100) > 100 else ((data_1.statistics[0].goals.assists or 0) / (data_1.statistics[0].games.appearences or 1) * 100) | float | round(2) }},
+                            {{ ((data_1.statistics[0].dribbles.success or 0) / (data_1.statistics[0].dribbles.attempts or 1) * 100) | float | round(2) }},
+                            {{ ((data_1.statistics[0].duels.won or 0) / (data_1.statistics[0].duels.total or 1) * 100) | float | round(2) }},
+                            {{ data_1.statistics[0].games.rating | float }}
+                        ]);
+
+                        document.getElementById("spider-defensive-tab").addEventListener("click", () => {
+                            loadChart("spider-chart-difensivo", [
+                                { name: '% Duelli Vinti', max: 100 },
+                                { name: 'Disciplina', max: 100 },
+                                { name: 'Lettura Difensiva', max: 100 },
+                                { name: 'Frequenza Falli', max: 100 },
+                                { name: 'Rating Stagionale', max: 10 }
+                            ], [
+                            {{ ((data.statistics[0].duels.won or 0) / (data.statistics[0].duels.total or 1) * 100) | float | round(2) }},
+                            {{ (100 - ((data.statistics[0].cards.yellow or 0) + (data.statistics[0].cards.red or 0) / (data.statistics[0].games.appearences or 1) * 100)) | float | round(2) }},
+                            {{ 100 if ((data.statistics[0].tackles.interceptions or 0) / ((data.statistics[0].games.appearences or 1) * 2) * 100) > 100 else ((data.statistics[0].tackles.interceptions or 0) /((data.statistics[0].games.appearences or 1) * 2) * 100) | float | round(2) }},
+                            {{ 100 if ((data.statistics[0].fouls.committed or 0) / (data.statistics[0].games.appearences or 1) * 100) > 100 else ((data.statistics[0].fouls.committed or 0) /(data.statistics[0].games.appearences or 1) * 100) | float | round(2) }},
+                            {{ (data.statistics[0].games.rating or 0) }}
+                            ], [
+                            {{ ((data_1.statistics[0].duels.won or 0) / (data_1.statistics[0].duels.total or 1) * 100) | float | round(2) }},
+                            {{ (100 - ((data_1.statistics[0].cards.yellow or 0) + (data_1.statistics[0].cards.red or 0) / (data_1.statistics[0].games.appearences or 1) * 100)) | float | round(2) }},
+                            {{ 100 if((data_1.statistics[0].tackles.interceptions or 0) / ((data_1.statistics[0].games.appearences or 1) * 2) * 100) > 100 else ((data_1.statistics[0].tackles.interceptions or 0) / ((data_1.statistics[0].games.appearences or 1) * 2) * 100) | float | round(2) }},
+                            {{ 100 if((data_1.statistics[0].fouls.committed or 0) / (data_1.statistics[0].games.appearences or 1) * 100) > 100 else ((data_1.statistics[0].fouls.committed or 0) / (data_1.statistics[0].games.appearences or 1) * 100) | float | round(2) }},
+                            {{ (data_1.statistics[0].games.rating or 0) }}
+                        ]);
+                        });
+
+                        document.getElementById("spider-goalkeeper-tab").addEventListener("click", () => {
+                                loadChart("spider-chart-portiere", [
+                                    { name: '% Parate', max: 100 },
+                                    { name: '% Duelli', max: 100 },
+                                    { name: '% Rigori Salvati', max: 100 }
+                                ],
+                                    [
+                                {{ ((data.statistics[0].goals.saves or 0) / ((data.statistics[0].goals.conceded or 0) + (data.statistics[0].goals.saves or 0) + 1e-5) * 100) | round(2)}},
+                                {{ ((data.statistics[0].duels.won or 0) / (data.statistics[0].duels.total or 1) * 100) | round(2) }},
+                                {{ ((data.statistics[0].penalty.saved or 0) / ((data.statistics[0].penalty.saved or 0) + (data.statistics[0].penalty.scored or 0) + 1e-5) * 100) | round(2) }}
+    ],
+                            [
+                                {{ ((data_1.statistics[0].goals.saves or 0) / ((data_1.statistics[0].goals.conceded or 0) + (data_1.statistics[0].goals.saves or 0) + 1e-5) * 100) | round(2) }},
+                                {{ ((data_1.statistics[0].duels.won or 0) / (data_1.statistics[0].duels.total or 1) * 100) | round(2) }},
+                                {{ ((data_1.statistics[0].penalty.saved or 0) / ((data_1.statistics[0].penalty.saved or 0) + (data_1.statistics[0].penalty.scored or 0) + 1e-5) * 100) | round(2) }}
+                            ]);
+});
+                    
+                    });
+                    </script>
+
+
+
+
+                    <!-- Bar Chart -->
+                    <div class="card">
+                        <div class="filter">
+                            <!-- Correzione del dropdown menu -->
+                            <a class="icon dropdown-toggle" href="#" data-bs-toggle="dropdown"><i
+                                    class="bi bi-three-dots"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <li class="dropdown-header text-start">
+                                    <h6>Filter</h6>
+                                </li>
+
+                                <li><a class="dropdown-item" href="#">Today</a></li>
+                                <li><a class="dropdown-item" href="#">This Month</a></li>
+                                <li><a class="dropdown-item" href="#">This Year</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body pb-0" style="padding-bottom: 30px;">
+                            <!-- Aggiunto padding per maggiore spazio -->
+                            <h5 class="card-title">Rigori <span>| Dettagli</span></h5>
+
+                            <!-- Canvas per il grafico Chart.js -->
+                            <canvas id="barChart" style="max-height: 400px; width: 100%;"></canvas>
+                            <!-- Canvas per il grafico -->
+
+                        </div>
+                    </div>
+                    <!-- End Bar Chart -->
+
+                    <!-- Aggiunta delle librerie necessarie -->
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                            // Creazione del grafico con Chart.js
+                            new Chart(document.querySelector('#barChart'), {
+                                type: 'bar',
+                                data: {
+                                    labels: ['Guadagnati', 'Commessi', 'Realizzati', 'Sbagliati'],
+                                    datasets: [{
+                                        label: 'Legenda',
+                                        data: [{{ data.statistics.0.penalty.scored or 0}}, {{ data.statistics.0.penalty.commited or 0}}, {{ data.statistics.0.penalty.scored or 0}}, {{ data.statistics.0.penalty.missed or 0}}],
+                            backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                        ],
+                            borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                        ],
+                            borderWidth: 1
+                }]
+              },
+                            options: {
+                            responsive: true, // Rende il grafico responsivo
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+            });
+          });
+                    </script>
+
+
+                </div><!-- End Right side columns -->
+
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+    <div class="copyright">
+        &copy; Copyright <strong><span>Football Masters</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+        Designed by Maurizio Polverini - <a href="https://www.app-eleven.it/">App Eleven</a>
+    </div>
+</footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{{ url_for('static', filename='vendor/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/chart.js/chart.umd.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/echarts/echarts.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/quill/quill.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/simple-datatables/simple-datatables.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/php-email-form/validate.js') }}"></script>
+
+
+    <!-- Template Main JS File -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
+</body>
+
+</html>
