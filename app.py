@@ -169,7 +169,7 @@ def widget_test():
 @app.route('/termini_e_condizioni')
 def termini_e_condizioni():
   global current_season
-  return render_template('termini_e_condizioni.html')
+  return render_template('termini_e_condizioni.html', current_season=current_season)
   
 
 @app.route("/leagues.html") #**perché c'è HTML?
