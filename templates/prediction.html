@@ -909,9 +909,10 @@
                         </div>
 
                         <div class="row text-center">
-                          <div class="col-3"><h6>12%*</h6></div>
-                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Percentuale Gol x Tiro*</span></div>
-                          <div class="col-3"><h6>15%*</h6></div>
+                          <div class="col-3"><h6>{{ (( home_master_stats['tot_shots_in_goal_per_match'] / home_master_stats['tot_shots_per_match'] * 100 )) | round(1) }}%</h6></div>
+                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Accuratezza Tiro</span></div>
+                          <div class="col-3"><h6>{{ (( away_master_stats['tot_shots_in_goal_per_match'] / away_master_stats['tot_shots_per_match'] * 100 )) | round(1)
+                          }}%</h6></div>
                         </div>
 
                         <div class="row text-center">
@@ -919,31 +920,6 @@
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Parate</span></div>
                           <div class="col-3"><h6>{{ away_master_stats['tot_saves_per_match'] }}</h6></div>
                         </div>
-
-                        <div class="row text-center">
-                          <div class="col-3"><h6>{{ history_away['failed_to_score']['home'] }}</h6></div>
-                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Offside*</span></div>
-                          <div class="col-3"><h6>{{ history_away['failed_to_score']['away'] }}</h6></div>
-                        </div>
-
-                        <div class="row text-center">
-                          <div class="col-3"><h6>{{ history_away['failed_to_score']['home'] }}</h6></div>
-                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Passaggi Totali*</span></div>
-                          <div class="col-3"><h6>{{ history_away['failed_to_score']['away'] }}</h6></div>
-                        </div>
-
-                        <div class="row text-center">
-                          <div class="col-3"><h6>{{ history_away['failed_to_score']['home'] }}</h6></div>
-                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Passaggi Completati*</span></div>
-                          <div class="col-3"><h6>{{ history_away['failed_to_score']['away'] }}</h6></div>
-                        </div>
-
-                        <div class="row text-center">
-                          <div class="col-3"><h6>{{ history_away['failed_to_score']['home'] }}</h6></div>
-                          <div class="col-6"><span class="text-muted small pt-2 ps-1">Possibilità Rigore*</span></div>
-                          <div class="col-3"><h6>{{ history_away['failed_to_score']['away'] }}</h6></div>
-                        </div>
-
                       </div>
                     </div>
                     
@@ -963,11 +939,19 @@
                       <div class="col-12">
                         <div class="row text-center fw-bold">
                           <div class="col-3">
+                            {% if last_match and last_match[0].team.logo %}
                             <img src="{{ last_match[0].team.logo }}" alt="Icona" style="width: 40px; height: 40px;">
+                            {% else %}
+                            <p>Dati non disponibili</p>
+                            {% endif %}
                           </div>
                           <div class="col-6">Media a partita</div>
                           <div class="col-3">
+                            {% if last_match and last_match[1].team.logo %}
                             <img src="{{ last_match[1].team.logo }}" alt="Icona" style="width: 40px; height: 40px;">
+                            {% else %}
+                            <p>Dati non disponibili</p>
+                            {% endif %}
                           </div>
                         </div>
             

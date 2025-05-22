@@ -444,20 +444,20 @@ def prediction(match_id):
       #time.sleep(5)
       #print("Attendo 5 secondi")
     time.sleep(1)
-    print("Sleep 1")
+    #print("Sleep 1")
     #print(f"** Home Top Players: {home_top_players}")
   #-- Fill Master_Stats_Home
   #print(f"Home Top Players List: {home_top_players}")
   home_master_stats['tot_yellowcard'] = home_tot_yellowcard
-  home_master_stats['tot_yellowcard_per_match'] = round(home_tot_yellowcard / games_played_home, 2)
+  home_master_stats['tot_yellowcard_per_match'] = round(home_tot_yellowcard / games_played_home, 2) if games_played_home else 0
   home_master_stats['tot_fouls_committed'] = home_tot_fouls
-  home_master_stats['tot_fouls_committed_per_match'] = round(home_tot_fouls / games_played_home, 2)
+  home_master_stats['tot_fouls_committed_per_match'] = round(home_tot_fouls / games_played_home, 2) if games_played_home else 0
   home_master_stats['tot_shots'] = home_tot_shots
-  home_master_stats['tot_shots_per_match'] = round(home_tot_shots / games_played_home, 2)
+  home_master_stats['tot_shots_per_match'] = round(home_tot_shots / games_played_home, 2) if games_played_home else 0
   home_master_stats['tot_shots_in_goal'] = home_tot_shots_in_goal
-  home_master_stats['tot_shots_in_goal_per_match'] = round(home_tot_shots_in_goal / games_played_home, 2)
+  home_master_stats['tot_shots_in_goal_per_match'] = round(home_tot_shots_in_goal / games_played_home, 2) if games_played_home else 0
   home_master_stats['tot_saves'] = home_tot_saves
-  home_master_stats['tot_saves_per_match'] = round( home_tot_saves / games_played_home , 2)
+  home_master_stats['tot_saves_per_match'] = round( home_tot_saves / games_played_home , 2) if games_played_home else 0
   #print(f"**Home_Master_stats: {home_master_stats}")
   #-- Fine Fill Master_Stats_Home
 
