@@ -542,15 +542,15 @@ def prediction(match_id):
   away_top_players_yellowcard = max(away_top_players, key=lambda p: p['player_yellowcard'] or 0)
 
   away_master_stats['tot_yellowcard'] = away_tot_yellowcard
-  away_master_stats['tot_yellowcard_per_match'] = round(away_tot_yellowcard / games_played_away, 2)
+  away_master_stats['tot_yellowcard_per_match'] = round(away_tot_yellowcard / games_played_away, 2) if games_played_away else 0
   away_master_stats['tot_fouls_committed'] = away_tot_fouls
-  away_master_stats['tot_fouls_committed_per_match'] = round(away_tot_fouls / games_played_away, 2)
+  away_master_stats['tot_fouls_committed_per_match'] = round(away_tot_fouls / games_played_away, 2) if games_played_away else 0
   away_master_stats['tot_shots'] = away_tot_shots
-  away_master_stats['tot_shots_per_match'] = round(away_tot_shots / games_played_away, 2)
+  away_master_stats['tot_shots_per_match'] = round(away_tot_shots / games_played_away, 2) if games_played_away else 0
   away_master_stats['tot_shots_in_goal'] = away_tot_shots_in_goal
-  away_master_stats['tot_shots_in_goal_per_match'] = round(away_tot_shots_in_goal / games_played_away, 2)
+  away_master_stats['tot_shots_in_goal_per_match'] = round(away_tot_shots_in_goal / games_played_away, 2) if games_played_away else 0
   away_master_stats['tot_saves'] = away_tot_saves
-  away_master_stats['tot_saves_per_match'] = round( away_tot_saves / games_played_away , 2)
+  away_master_stats['tot_saves_per_match'] = round( away_tot_saves / games_played_away , 2) if games_played_away else 0
   
   print(f"Away_Master_Stats: {away_master_stats}")
   
