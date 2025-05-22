@@ -236,16 +236,65 @@ def get_topredcards(league_id):
 
 @app.route('/bookmakers/<int:fixture_id>', endpoint='bookmakers')
 def get_odds(fixture_id):
+    global current_season
+    bookmaker_ids = {
+        "BET365": 8,
+        "BWIN": 6,
+        "BETFAIR": 3
+    }
+
+    wanted_ids = {5, 6, 9, 12, 13, 14, 16, 17, 19, 25}
+    odds_by_market = {}
+
+    for name, bm_id in bookmaker_ids.items():
+        params = {
+            "fixture": fixture_id,
+            "bookmaker": bm_id
+        }
+        response = requests.get(apifootball_url + "odds", headers=headers, params=params).json()
+        try:
+            bets = response['response'][0]['bookmakers'][0]['bets']
+        except (IndexError, KeyError):
+            continue
+
+        for bet in bets:
+            if bet['id'] not in wanted_ids:
+                continue
+
+            market = bet['name']
+            if market not in odds_by_market:
+                odds_by_market[market] = {}
+
+            for val in bet['values']:
+                value = val['value']
+                odd = val['odd']
+                if value not in odds_by_market[market]:
+                    odds_by_market[market][value] = {}
+                odds_by_market[market][value][name] = odd  # es: odds_by_market['Goals Over/Under']['Over 2.5']['BET365'] = '1.80'
+
+    return render_template('bookmakers.html', odds=odds_by_market, current_season=current_season)
+
+
+
+def get_odds(fixture_id):
   global current_season
   params = {
     "fixture": fixture_id,
-    "bookmaker": 6
+    "bookmaker": 8 #3 betfair, 6 bwin, 1 10bet, 8 bet365
   }
   response = requests.get(apifootball_url + "odds", headers=headers, params=params)
   response = response.json()
-  odds = response
-  print(response)
+  odds = response['response'][0]['bookmakers'][0]['bets']
+  #print(odds)
+  #for odd in odds:
+  #  print(f"{odd['id']}, {odd['name']}, {odd['values']}")
+# parsing della risposta AP
+  needed_ids = {17, 16, 12, 13, 14, 19, 9, 6, 5, 25}
+  filtered_odds = [bet for bet in odds if bet['id'] in needed_ids]
+  print(filtered_odds)
+  #print(response)
   return render_template('bookmakers.html', odds=odds, current_season=current_season)
+#get_odds(1223969)
 
 @app.route('/matches/<int:league_id>')
 def get_matches(league_id):
