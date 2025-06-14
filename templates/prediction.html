@@ -909,10 +909,26 @@
                         </div>
 
                         <div class="row text-center">
-                          <div class="col-3"><h6>{{ (( home_master_stats['tot_shots_in_goal_per_match'] / home_master_stats['tot_shots_per_match'] * 100 )) | round(1) }}%</h6></div>
+                          <div class="col-3">
+                            <h6>
+                              {% if home_master_stats['tot_shots_per_match'] %}
+                              {{ (home_master_stats['tot_shots_in_goal_per_match'] / home_master_stats['tot_shots_per_match'] * 100) | round(1)
+                              }}%
+                              {% else %}
+                              N/A
+                              {% endif %}
+                            </h6>
+                          </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Accuratezza Tiro</span></div>
-                          <div class="col-3"><h6>{{ (( away_master_stats['tot_shots_in_goal_per_match'] / away_master_stats['tot_shots_per_match'] * 100 )) | round(1)
-                          }}%</h6></div>
+                          <div class="col-3"><h6>
+                            {% if away_master_stats['tot_shots_per_match'] %}
+                            {{ (away_master_stats['tot_shots_in_goal_per_match'] / away_master_stats['tot_shots_per_match'] * 100) | round(1)
+                            }}%
+                            {% else %}
+                            N/A
+                            {% endif %}
+                          </h6>
+                          </div>
                         </div>
 
                         <div class="row text-center">
@@ -929,7 +945,7 @@
               </div>
             </div><!-- End Altre Statistiche h2h --> 
 
-            <!-- Statistiche Ultimi 2 scontri diretti -->
+            <!-- Statistiche Ultimi scontri diretti -->
             <div class="col-xxl-12 col-md-6">
               <div class="card info-card revenue-card">
                 <div class="card-body">
@@ -957,161 +973,162 @@
             
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[0].value }}</h6> <!-- Tiri in Porta Bologna -->
+                            <h6>{{ last_match[0].statistics[0].value if last_match and last_match|length > 0 and last_match[0].statistics|length > 0 else 0 }}
+                          </h6> <!-- Tiri in Porta Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Tiri in Porta</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[0].value }}</h6> <!-- Tiri in Porta Venezia -->
+                            <h6>{{ last_match.1.statistics[0].value if last_match and last_match|length > 0 and last_match.1.statistics|length > 0 else 0 }}</h6> <!-- Tiri in Porta Venezia -->
                           </div>
                         </div>
                         
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[1].value }}</h6> <!-- Tiri Fuori Bologna -->
+                            <h6>{{ last_match.0.statistics[1].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Tiri Fuori Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Tiri Fuori</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[1].value }}</h6> <!-- Tiri Fuori Venezia -->
+                            <h6>{{ last_match.1.statistics[1].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Tiri Fuori Venezia -->
                           </div>
                         </div>
                         
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[4].value }}</h6> <!-- Tiri dentro l'area Bologna -->
+                            <h6>{{ last_match.0.statistics[4].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Tiri dentro l'area Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Tiri dentro l'area</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[4].value }}</h6> <!-- Tiri dentro l'area Venezia -->
+                            <h6>{{ last_match.1.statistics[4].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Tiri dentro l'area Venezia -->
                           </div>
                         </div>
                         
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[5].value }}</h6> <!-- Tiri fuori l'area Bologna -->
+                            <h6>{{ last_match.0.statistics[5].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Tiri fuori l'area Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Tiri fuori l'area</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[5].value }}</h6> <!-- Tiri fuori l'area Venezia -->
+                            <h6>{{ last_match.1.statistics[5].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Tiri fuori l'area Venezia -->
                           </div>
                         </div>
                         
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[2].value }}</h6> <!-- Tiri totali Bologna -->
+                            <h6>{{ last_match.0.statistics[2].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Tiri totali Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Tiri totali</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[2].value }}</h6> <!-- Tiri totali Venezia -->
+                            <h6>{{ last_match.1.statistics[2].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Tiri totali Venezia -->
                           </div>
                         </div>
 
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[12].value }}</h6> <!-- Parate totali Bologna -->
+                            <h6>{{ last_match.0.statistics[12].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Parate totali Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Parate</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[12].value }}</h6> <!-- Parate totali Venezia -->
+                            <h6>{{ last_match.1.statistics[12].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Parate totali Venezia -->
                           </div>
                         </div>
 
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[13].value }}</h6> <!-- Parate totali Bologna -->
+                            <h6>{{ last_match.0.statistics[13].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Parate totali Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Passaggi Totali</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[13].value }}</h6> <!-- Parate totali Venezia -->
+                            <h6>{{ last_match.1.statistics[13].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Parate totali Venezia -->
                           </div>
                         </div>
 
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[14].value }}</h6> <!-- Parate totali Bologna -->
+                            <h6>{{ last_match.0.statistics[14].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Parate totali Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Passaggi Riusciti</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[14].value }}</h6> <!-- Parate totali Venezia -->
+                            <h6>{{ last_match.1.statistics[14].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Parate totali Venezia -->
                           </div>
                         </div>
 
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[15].value }}</h6> <!-- Parate totali Bologna -->
+                            <h6>{{ last_match.0.statistics[15].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Parate totali Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Accuratezza Passaggi</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[15].value }}</h6> <!-- Parate totali Venezia -->
+                            <h6>{{ last_match.1.statistics[15].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Parate totali Venezia -->
                           </div>
                         </div>
                         
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[6].value }}</h6> <!-- Falli Bologna -->
+                            <h6>{{ last_match.0.statistics[6].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Falli Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Falli</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[6].value }}</h6> <!-- Falli Venezia -->
+                            <h6>{{ last_match.1.statistics[6].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Falli Venezia -->
                           </div>
                         </div>
                         
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[7].value }}</h6> <!-- Corner Bologna -->
+                            <h6>{{ last_match.0.statistics[7].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Corner Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Corner</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[7].value }}</h6> <!-- Corner Venezia -->
+                            <h6>{{ last_match.1.statistics[7].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Corner Venezia -->
                           </div>
                         </div>
                         
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[8].value }}</h6> <!-- Fuorigioco Bologna -->
+                            <h6>{{ last_match.0.statistics[8].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Fuorigioco Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Fuorigioco</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[8].value }}</h6> <!-- Fuorigioco Venezia -->
+                            <h6>{{ last_match.1.statistics[8].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Fuorigioco Venezia -->
                           </div>
                         </div>
                         
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[10].value }}</h6> <!-- Cartellini Gialli Bologna -->
+                            <h6>{{ last_match.0.statistics[10].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Cartellini Gialli Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Cartellini Gialli</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[10].value }}</h6> <!-- Cartellini Gialli Venezia -->
+                            <h6>{{ last_match.1.statistics[10].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Cartellini Gialli Venezia -->
                           </div>
                         </div>
                         
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[11].value }}</h6> <!-- Cartellini Rossi Bologna -->
+                            <h6>{{ last_match.0.statistics[11].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Cartellini Rossi Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Cartellini Rossi</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[11].value }}</h6> <!-- Cartellini Rossi Venezia -->
+                            <h6>{{ last_match.1.statistics[11].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Cartellini Rossi Venezia -->
                           </div>
                         </div>
                         
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[16].value }}</h6> <!-- Expected Goals Bologna -->
+                            <h6>{{ last_match.0.statistics[16].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Expected Goals Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Expected Gol (xG)</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[16].value }}</h6> <!-- Expected Goals Venezia -->
+                            <h6>{{ last_match.1.statistics[16].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Expected Goals Venezia -->
                           </div>
                         </div>
                         
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[17].value }}</h6> <!-- Goal Prevented Bologna -->
+                            <h6>{{ last_match.0.statistics[17].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Goal Prevented Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Goal Prevented (GP)</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[17].value }}</h6> <!-- Goal Prevented Venezia -->
+                            <h6>{{ last_match.1.statistics[17].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Goal Prevented Venezia -->
                           </div>
                         </div>
 
@@ -1210,6 +1227,7 @@
               <!-- List group With Icons -->
               <ul class="list-group">
                 <div class="row">
+                  {% if precedenti_matchJSON %}
                   {% for match in precedenti_matchJSON %}
                   <div class="col-12 mb-3">
                     <div class="row align-items-center p-3 border rounded" style="border: 1px solid #dcdcdc;">
@@ -1269,6 +1287,11 @@
                     </div>
                   </div>
                   {% endfor %}
+                  {% else %}
+                  <div class="col-12 text-center p-4">
+                    <p class="text-muted">Nessun incontro precedente registrato.</p>
+                  </div>
+                  {% endif %}
                 </div>
               </ul><!-- End List group With Icons -->
             </div>

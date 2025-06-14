@@ -375,6 +375,7 @@ def prediction(match_id):
   history_away = response['teams']['away']['league']
   prediction = response['predictions']
   precedenti_matchJSON = response['h2h']
+  print(F"Precedenti: {precedenti_matchJSON}")
   params = {
     "league": league_id,
     "season": current_season,
@@ -604,13 +605,14 @@ def prediction(match_id):
   print(f"Away_Master_Stats: {away_master_stats}")
   
   #Studio Ultimo Scontro Diretto
-  params = {
+  last_match = []
+  if precedenti_matchJSON:
+    params = {
       "fixture": precedenti_matchJSON[0]['fixture']['id']
     }
-  response = requests.get(apifootball_url + "fixtures/statistics", headers=headers, params=params)
-  response = response.json()
-  response = response['response']
-  last_match = response
+    response = requests.get(apifootball_url + "fixtures/statistics", headers=headers, params=params)
+    response = response.json()
+    last_match = response.get('response', [])
   #print(f"Last_Match: {last_match}")
   return render_template('prediction.html', current_season=current_season, league_id=league_id, home_team_id=home_team_id, away_team_id=away_team_id, away_master_stats=away_master_stats, last_match=last_match, cards_away=cards_away, cards_home=cards_home, match_id=match_id, home_master_stats=home_master_stats, away_top_players_yellowcard=away_top_players_yellowcard, away_top_players_goal=away_top_players_goal, away_top_players_assist=away_top_players_assist, home_top_players_yellowcard=home_top_players_yellowcard, home_top_players_goal=home_top_players_goal, home_top_players_assist=home_top_players_assist, winner=winner, team_home=team_home, form_home=form_home, flag_home=flag_home, team_away=team_away, form_away=form_away, flag_away=flag_away, comparison_form_home=comparison_form_home, spider_home_lista=spider_home_lista, spider_away_lista=spider_away_lista, history_home=history_home, history_away=history_away, prediction=prediction, precedenti_matchJSON=precedenti_matchJSON, goal_minute_home=goal_minute_home, goal_minute_away=goal_minute_away, goal_minute_home_subiti=goal_minute_home_subiti, goal_minute_subiti_away=goal_minute_subiti_away)
 
@@ -656,6 +658,8 @@ def get_api_status():
     response = requests.get(url=apifootball_url + "status", headers=headers)
     response = response.json()
     print(f"{response}")
+    if response['errors']:
+      print("Errore probabilmente piano scaduto")
     print(f"Limite API calls: {response['response']['requests']['current']}/{response['response']['requests']['limit_day']}")
   except TypeError as e:
     print(f"*** Error Limite API calls: {e}")
