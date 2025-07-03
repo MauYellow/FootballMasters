@@ -39,7 +39,7 @@ mese = f"{mese:02}"
 giorno = oggi.day
 ora = oggi.hour
 minuto = oggi.minute
-current_season = 2024 # Questa deve cambiare automaticamente!
+current_season = 2025 #2024 # Questa deve cambiare automaticamente!
 available_fixtures = []
 
 @app.route('/')
@@ -511,10 +511,10 @@ def prediction(match_id):
   #print(f"**Home_Master_stats: {home_master_stats}")
   #-- Fine Fill Master_Stats_Home
 
-  home_top_players_goal = max(home_top_players, key=lambda p: p["player_goal"] or 0)
+  home_top_players_goal = max(home_top_players, key=lambda p: p["player_goal"] or 0) if home_top_players else None
   #print(f"home_top_players_goal {home_top_players_goal}")
-  home_top_players_assist = max(home_top_players, key=lambda p: p['player_assist'] or 0)
-  home_top_players_yellowcard = max(home_top_players, key=lambda p: p['player_yellowcard'] or 0)
+  home_top_players_assist = max(home_top_players, key=lambda p: p['player_assist'] or 0) if home_top_players else None
+  home_top_players_yellowcard = max(home_top_players, key=lambda p: p['player_yellowcard'] or 0) if home_top_players else None
   #Player Statistics Away
   away_top_players = []
   away_master_stats = {}
@@ -587,9 +587,9 @@ def prediction(match_id):
         away_tot_shots_in_goal = away_tot_shots_in_goal + (player['statistics'][0]['shots']['on'] if player['statistics'] and player['statistics'][0]['shots']['on'] is not None else 0)
         away_tot_saves = away_tot_saves + (player['statistics'][0]['goals']['saves'] if player['statistics'] and player['statistics'][0]['goals']['saves'] is not None else 0)
 
-  away_top_players_goal = max(away_top_players, key=lambda p: p["player_goal"] or 0)
-  away_top_players_assist = max(away_top_players, key=lambda p: p['player_assist'] or 0)
-  away_top_players_yellowcard = max(away_top_players, key=lambda p: p['player_yellowcard'] or 0)
+  away_top_players_goal = max(away_top_players, key=lambda p: p["player_goal"] or 0) if away_top_players else None
+  away_top_players_assist = max(away_top_players, key=lambda p: p['player_assist'] or 0) if away_top_players else None
+  away_top_players_yellowcard = max(away_top_players, key=lambda p: p['player_yellowcard'] or 0) if away_top_players else None
 
   away_master_stats['tot_yellowcard'] = away_tot_yellowcard
   away_master_stats['tot_yellowcard_per_match'] = round(away_tot_yellowcard / games_played_away, 2) if games_played_away else 0
