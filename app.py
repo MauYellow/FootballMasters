@@ -1,7 +1,7 @@
 import requests, time, mysql.connector
 from mysql.connector import errorcode
 from datetime import datetime, date
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, flash
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -100,6 +100,7 @@ def player_stats(player_id):
     }
   response = requests.get(apifootball_url + "players", headers=headers, params=params)
   response = response.json()
+  print(f"Response data: {response}")
   data = response['response'][0]
   params = {
       "id": player_id,
@@ -172,67 +173,119 @@ def termini_e_condizioni():
   return render_template('termini_e_condizioni.html', current_season=current_season)
   
 
-@app.route("/leagues.html") #**perché c'è HTML?
+@app.route("/leagues.html", methods=["GET"])
 def leagues():
     global current_season
-    league = request.args.get("league", "default_value")  # Prende il valore dalla URL
-    season = request.args.get("season", f"{current_season}")  # Valore di default
-    return render_template("leagues.html", league=league, season=season, current_season=current_season)
+    league = request.args.get("league", "default_value")
+    season = request.args.get("season", str(current_season))  # Legge dalla query string
 
-@app.route("/standings.html") #**Perché c'è HTML?
+    return render_template(
+        "leagues.html",
+        league=league,
+        season=season,
+        current_season=int(season)  # Così nel template è un numero
+    )
+
+@app.route("/standings.html", methods=["GET"])
 def standings():
     global current_season
-    league = request.args.get("league", "default_value")  # Prende il valore dalla URL
-    season = request.args.get("season", f"{current_season}")  # Valore di default
-    return render_template("standings.html", league=league, season=season, current_season=current_season)
+    league = request.args.get("league", "default_value")
+    season = request.args.get("season", str(current_season))  # Legge dalla query string
 
-@app.route('/topscorer/<int:league_id>')
+    return render_template(
+        "standings.html",
+        league=league,
+        season=season,
+        current_season=int(season)  # Passato come int per confronto nel template
+    )
+
+@app.route('/topscorer/<int:league_id>', methods=['GET'])
 def get_topscorer(league_id):
-  global current_season
-  params = {
-    "league": league_id,
-    "season": current_season
-  }
-  response = requests.get(apifootball_url + "players/topscorers", headers=headers, params=params)
-  response = response.json()
-  players = response['response']
-  return render_template("topscorer.html", players=players, current_season=current_season)
+    year = request.args.get('season', current_season)  # Se non viene passato, usa quello di default
 
-@app.route('/topassists/<int:league_id>')
+    params = {
+        "league": league_id,
+        "season": year
+    }
+    response = requests.get(apifootball_url + "players/topscorers", headers=headers, params=params)
+    response = response.json()
+    players = response['response']
+    return render_template("topscorer.html", players=players, current_season=year, league_id=league_id)
+
+@app.route('/topassists/<int:league_id>', methods=["GET"])
 def get_topassists(league_id):
-  global current_season
-  params = {
-    "league": league_id,
-    "season": current_season
-  }
-  response = requests.get(apifootball_url + "players/topassists", headers=headers, params=params)
-  response = response.json()
-  players = response['response']
-  return render_template("topassists.html", players=players, current_season=current_season)
+    global current_season
+    season = request.args.get("season", str(current_season))  # legge dalla query string o usa default
 
-@app.route('/topyellowcards/<int:league_id>')
+    params = {
+        "league": league_id,
+        "season": season
+    }
+    response = requests.get(
+        apifootball_url + "players/topassists",
+        headers=headers,
+        params=params
+    )
+    response = response.json()
+    players = response['response']
+
+    return render_template(
+        "topassists.html",
+        players=players,
+        current_season=int(season),  # int per confronto con year nel template
+        league_id=league_id
+    )
+
+
+@app.route('/topyellowcards/<int:league_id>', methods=["GET"])
 def get_topyellowcards(league_id):
-  global current_season
-  params = {
-    "league": league_id,
-    "season": current_season
-  }
-  response = requests.get(apifootball_url + "players/topyellowcards", headers=headers, params=params)
-  response = response.json()
-  players = response['response']
-  return render_template("topyellowcards.html", players=players, current_season=current_season)
+    global current_season
+    season = request.args.get("season", str(current_season))  # legge dalla query string o usa default
 
-@app.route('/topredcards/<int:league_id>')
+    params = {
+        "league": league_id,
+        "season": season
+    }
+    response = requests.get(
+        apifootball_url + "players/topyellowcards",
+        headers=headers,
+        params=params
+    )
+    response = response.json()
+    players = response['response']
+
+    return render_template(
+        "topyellowcards.html",
+        players=players,
+        current_season=int(season),  # int per confronto nel template
+        league_id=league_id
+    )
+
+
+@app.route('/topredcards/<int:league_id>', methods=["GET"])
 def get_topredcards(league_id):
-  global current_season
-  params = {
-    "league": league_id,
-    "season": current_season
-  }
-  response = requests.get(apifootball_url + "players/topredcards", headers=headers, params=params)
-  response = response.json()
-  players = response['response']
-  return render_template("topredcards.html", players=players, current_season=current_season)
+    global current_season
+    season = request.args.get("season", str(current_season))  # legge dalla query string o usa default
+
+    params = {
+        "league": league_id,
+        "season": season
+    }
+    response = requests.get(
+        apifootball_url + "players/topredcards",
+        headers=headers,
+        params=params
+    )
+    response = response.json()
+    players = response['response']
+
+    return render_template(
+        "topredcards.html",
+        players=players,
+        current_season=int(season),  # int per confronto con year nel template
+        league_id=league_id
+    )
+
 
 @app.route('/bookmakers/<int:fixture_id>', endpoint='bookmakers')
 def get_odds(fixture_id):
