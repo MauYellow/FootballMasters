@@ -1,15 +1,17 @@
 import requests, time, mysql.connector
 from mysql.connector import errorcode
 from datetime import datetime, date
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, jsonify
 import os
 from dotenv import load_dotenv
+from openai import OpenAI
+import json
 load_dotenv()
 
 try: 
   cnx = mysql.connector.connect(user=os.getenv("MYSQL_USER"), password=os.getenv("MYSQL_PASSWORD"), 
-                              host='127.0.0.1',
-                              database=os.getenv("MYSQL_DB"))
+    host='127.0.0.1',
+    database=os.getenv("MYSQL_DB"))
   print("MySQL Database connesso correttamente")
 except mysql.connector.Error as err:
   if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -22,7 +24,8 @@ else:
   cnx.close()
 
 apifootball_key = os.getenv("apifootball_key")
-apifootball_url = os.getenv("apifootball_url") #"https://v3.football.api-sports.io/"
+apifootball_url = os.getenv("apifootball_url")
+OPENAI_APIKEY = os.getenv("OPENAI_APIKEY")
 headers = {
     'x-rapidapi-host': apifootball_url,
     'x-rapidapi-key': apifootball_key
@@ -30,6 +33,7 @@ headers = {
 
 
 app = Flask(__name__, template_folder='templates', static_folder='assets')
+client = OpenAI(api_key=OPENAI_APIKEY)
 
 
 oggi = datetime.now()
@@ -41,6 +45,10 @@ ora = oggi.hour
 minuto = oggi.minute
 current_season = 2025 #2024 # Questa deve cambiare automaticamente!
 available_fixtures = []
+
+total_ai_cost = 0
+BUDGET_AI_USD = 1.50
+mese_calcolo_ai = "08"
 
 @app.route('/')
 def index():
@@ -148,13 +156,14 @@ def team_stats(team_id, league_id):
   response = requests.get(apifootball_url + "teams/statistics", headers=headers, params=params)
   response = response.json()
   data_team = response['response']
-  print(f"data_team: {data_team}")
+  print(f"data_team: {data_team}**")
   params = {
         "team": team_id, #497 roma da sostituire con team_id, *qui va messo come variabile!
     }
   response = requests.get(apifootball_url + "players/squads", headers=headers, params=params)
   response = response.json()
   squad = response['response']
+  print(f"Squad: {squad}**")
   return render_template('team_stats.html', squad=squad, data_team=data_team, current_season=current_season)
 
 
@@ -397,6 +406,7 @@ def prediction(match_id):
   response = requests.get(apifootball_url + "predictions", headers=headers, params=params)
   response = response.json()
   response = response['response'][0]
+  #print(f"Predizione match: {response}")
   home_team_id = response['teams']['home']['id']
   away_team_id = response['teams']['away']['id']
   league_id = response['league']['id']
@@ -428,7 +438,7 @@ def prediction(match_id):
   history_away = response['teams']['away']['league']
   prediction = response['predictions']
   precedenti_matchJSON = response['h2h']
-  print(F"Precedenti: {precedenti_matchJSON}")
+  #print(F"Precedenti: {precedenti_matchJSON}")
   params = {
     "league": league_id,
     "season": current_season,
@@ -436,6 +446,7 @@ def prediction(match_id):
   }
   response = requests.get(apifootball_url + "teams/statistics", headers=headers, params=params)
   response = response.json()
+  team_general_stats_home = response
   cards_home = response['response']['cards']
   goal_minute_home = response['response']['goals']['for']['minute']
   goal_minute_home_subiti = response['response']['goals']['against']['minute']
@@ -447,6 +458,7 @@ def prediction(match_id):
   }
   response = requests.get(apifootball_url + "teams/statistics", headers=headers, params=params)
   response = response.json()
+  team_general_stats_away = response
   cards_away = response['response']['cards']
   goal_minute_away = response['response']['goals']['for']['minute']
   goal_minute_subiti_away = response['response']['goals']['against']['minute']
@@ -462,13 +474,13 @@ def prediction(match_id):
 
   #------Lsta giocatori Attuali
   params = {
-        "team": home_team_id, #497 roma da sostituire con team_id, *qui va messo come variabile!
+        "team": home_team_id, 
     }
   response = requests.get(apifootball_url + "players/squads", headers=headers, params=params)
   home_current_team = [p['name'] for p in response.json()['response'][0]['players']]
   #print(f"Home Current Team: {home_current_team}")
   params = {
-        "team": away_team_id, #497 roma da sostituire con team_id, *qui va messo come variabile!
+        "team": away_team_id, 
     }
   response = requests.get(apifootball_url + "players/squads", headers=headers, params=params)
   away_current_team = [p['name'] for p in response.json()['response'][0]['players']]
@@ -655,10 +667,11 @@ def prediction(match_id):
   away_master_stats['tot_saves'] = away_tot_saves
   away_master_stats['tot_saves_per_match'] = round( away_tot_saves / games_played_away , 2) if games_played_away else 0
   
-  print(f"Away_Master_Stats: {away_master_stats}")
+  #print(f"Away_Master_Stats: {away_master_stats}")
   
   #Studio Ultimo Scontro Diretto
   last_match = []
+  
   if precedenti_matchJSON:
     params = {
       "fixture": precedenti_matchJSON[0]['fixture']['id']
@@ -666,8 +679,97 @@ def prediction(match_id):
     response = requests.get(apifootball_url + "fixtures/statistics", headers=headers, params=params)
     response = response.json()
     last_match = response.get('response', [])
+    if precedenti_matchJSON[1]:
+      
+      params = {
+      "fixture": precedenti_matchJSON[1]['fixture']['id']
+    }
+      response = requests.get(apifootball_url + "fixtures/statistics", headers=headers, params=params)
+      response = response.json()
+      last_match1 = response.get('response', [])
+      
+      
   #print(f"Last_Match: {last_match}")
-  return render_template('prediction.html', current_season=current_season, league_id=league_id, home_team_id=home_team_id, away_team_id=away_team_id, away_master_stats=away_master_stats, last_match=last_match, cards_away=cards_away, cards_home=cards_home, match_id=match_id, home_master_stats=home_master_stats, away_top_players_yellowcard=away_top_players_yellowcard, away_top_players_goal=away_top_players_goal, away_top_players_assist=away_top_players_assist, home_top_players_yellowcard=home_top_players_yellowcard, home_top_players_goal=home_top_players_goal, home_top_players_assist=home_top_players_assist, winner=winner, team_home=team_home, form_home=form_home, flag_home=flag_home, team_away=team_away, form_away=form_away, flag_away=flag_away, comparison_form_home=comparison_form_home, spider_home_lista=spider_home_lista, spider_away_lista=spider_away_lista, history_home=history_home, history_away=history_away, prediction=prediction, precedenti_matchJSON=precedenti_matchJSON, goal_minute_home=goal_minute_home, goal_minute_away=goal_minute_away, goal_minute_home_subiti=goal_minute_home_subiti, goal_minute_subiti_away=goal_minute_subiti_away)
+  return render_template('prediction.html', team_general_stats_home=team_general_stats_home, team_general_stats_away=team_general_stats_away, current_season=current_season, league_id=league_id, home_team_id=home_team_id, away_team_id=away_team_id, away_master_stats=away_master_stats, last_match=last_match, last_match1=last_match1, cards_away=cards_away, cards_home=cards_home, match_id=match_id, home_master_stats=home_master_stats, away_top_players_yellowcard=away_top_players_yellowcard, away_top_players_goal=away_top_players_goal, away_top_players_assist=away_top_players_assist, home_top_players_yellowcard=home_top_players_yellowcard, home_top_players_goal=home_top_players_goal, home_top_players_assist=home_top_players_assist, winner=winner, team_home=team_home, form_home=form_home, flag_home=flag_home, team_away=team_away, form_away=form_away, flag_away=flag_away, comparison_form_home=comparison_form_home, spider_home_lista=spider_home_lista, spider_away_lista=spider_away_lista, history_home=history_home, history_away=history_away, prediction=prediction, precedenti_matchJSON=precedenti_matchJSON, goal_minute_home=goal_minute_home, goal_minute_away=goal_minute_away, goal_minute_home_subiti=goal_minute_home_subiti, goal_minute_subiti_away=goal_minute_subiti_away)
+
+@app.post("/api/ai_chat")
+def api_ai_chat():
+    global total_ai_cost
+    global mese
+    global mese_calcolo_ai
+
+    if mese != mese_calcolo_ai:
+      total_ai_cost = 0
+      mese_calcolo_ai = mese
+
+    
+    data = request.get_json(force=True) or {}
+    user_msg = data.get("message", "").strip()
+
+    # Contesto completo passato dal client (/prediction => DOM => /api/ai_chat)
+    ctx = data.get("context", {}) or {}
+
+    # Back-compat: se non hai usato il context, prendi eventuali campi sciolti
+    team_general_stats_home = ctx.get("team_general_stats_home") or data.get("team_general_stats_home")
+    team_general_stats_away = ctx.get("team_general_stats_away") or data.get("team_general_stats_away")
+
+    # (opzionale) whitelisting campi attesi, per evitare di passare roba inutile al modello
+    allowed_keys = {"prediction", "home_master_stats", "away_master_stats", "last_match", "last_match1"}
+    ctx_filtered = {k: v for k, v in ctx.items() if k in allowed_keys}
+
+    # Serializza il contesto in JSON compatto (evita payload giganteschi)
+    try:
+        context_json = json.dumps(ctx_filtered, ensure_ascii=False, separators=(",", ":"))
+    except Exception:
+        context_json = "{}"
+
+    if not user_msg:
+        return jsonify({"reply": "Scrivi una domanda sulla partita e ti rispondo 😊"})
+
+    system_prompt = (
+        "Sei Football Masters AI. Rispondi in italiano, in modo conciso e pratico.\n"
+        f"Hai a disposizione dati di contesto JSON qui per la squadra di casa {team_general_stats_home} e per quella in trasferta {team_general_stats_away}.\n"
+        "Specifica chiaramente che hai elaborato i dati della stagione in corso (specifica se sono pochi, specialmente ad inizio stagione) e degli ultimi due scontri diretti (con dettagli, specifica che parli degli scontri diretti)"
+        "Se l'utente chiede numeri previsionali (falli, tiri, parate, cartellini, risultato esatto), "
+        "usa SOLO i dati forniti nel contesto come base e in aggiunta quelli relativi agli ultimi due scontri diretti."
+        "Per dare il dato basati anche sull'attuale stato di forma delle squadre e dalla condizione must-win"
+        "Se mancano informazioni, dichiaralo chiaramente."
+        "Non inventare dati storici; se devi stimare, esplicita che è una stima basato su calcoli e probabilità AI."
+    )
+
+    # Costruiamo i messaggi: istruzioni + CONTEXT_JSON + domanda utente
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "system", "content": f"CONTEXT_JSON:\n{context_json}"},
+        {"role": "user", "content": user_msg},
+    ]
+
+    resp = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=messages,
+        temperature=0.3,
+    )
+
+    reply = resp.choices[0].message.content
+
+    u = resp.usage  # -> ha prompt_tokens, completion_tokens, total_tokens
+    in_tok  = u.prompt_tokens or 0
+    out_tok = u.completion_tokens or 0
+
+    # Prezzi correnti GPT-4o mini (aggiorna se cambi modello)
+    PRICE_IN  = 0.60 / 1_000_000   # $ per token input
+    PRICE_OUT = 2.40 / 1_000_000   # $ per token output
+
+    cost = in_tok * PRICE_IN + out_tok * PRICE_OUT
+    print(f"[OpenAI] in={in_tok} out={out_tok} cost=${cost:.6f}")
+    total_ai_cost +=  cost
+    percentuale_utilizzo_ai = 0.0
+    if BUDGET_AI_USD > 0:
+        percentuale_utilizzo_ai = min((total_ai_cost / BUDGET_AI_USD) * 100.0, 100.0)
+    print(f"Costo Totale AI Mensile: {total_ai_cost}")
+    print(f"Percentuale utilizzo AI Mensile: {percentuale_utilizzo_ai}")
+
+    return jsonify({"reply": reply, "usage_pct": round(percentuale_utilizzo_ai, 2)})
 
 
 def get_updates():

@@ -814,7 +814,7 @@
                       }
                     },
                     fill: {
-                      opacity: 50
+                      opacity: 0.5
                     },
                     tooltip: {
                       y: {
@@ -1718,6 +1718,535 @@
         </div><!-- End Right side columns -->
 
       </div>
+
+<!-- Pulsante flottante -->
+    <!-- Pulsante flottante -->
+    <div id="assistenza-button">
+      <button class="btn btn-danger btn-buy-now" type="button" onclick="openChat()">
+        Chiedi all'AI <img src="https://img.icons8.com/color/48/bard--v2.png" height="20" width="20">
+      </button>
+    </div>
+    
+    <!-- CHAT AI -->
+    <div id="chat-assistenza" class="card shadow" role="dialog" aria-modal="true" aria-labelledby="chat-title">
+      <div class="chat-header">
+        <h6 id="chat-title" class="mb-0"><img src="https://img.icons8.com/color/48/bard--v2.png" height="20" width="20"> Football Masters AI</h6>
+          <!-- PROGRESS USO -->
+          <div class="usage-wrap" aria-label="Utilizzo totale mese">
+            <span class="usage-label" id="usage-label">Utilizzo Mensile</span>
+            <div class="usage-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-labelledby="usage-label">
+              <div class="usage-fill" id="ai-usage-fill" style="width:0%" aria-valuenow="0"></div>
+            </div>
+            <span class="usage-pct" id="ai-usage-text">0%</span>
+          </div>
+        <button class="btn-close" type="button" aria-label="Close" onclick="toggleChat()"></button>
+      </div>
+    
+      <div id="chat-box" class="chat-box">
+        <div class="msg system"><i>Ciao! Ho i dati della partita. Scrivimi una domanda oppure usa i pulsanti rapidi.</i>
+        </div>
+      </div>
+    
+      <div class="quick-actions" id="qa">
+        <!-- colonna sinistra: CASA -->
+        <div class="qa-col">
+          <div class="qa-col-title"> <img src="{{ flag_home }}" width="20" height="20"> {{ team_home }}</div>
+    
+          <button class="btn btn-outline-secondary btn-sm" type="button" onclick="askFromButton(this)"
+            data-q="Tiri in porta probabili {{ team_home }}">
+            🎯 Tiri in Porta probabili
+          </button>
+    
+          <button class="btn btn-outline-secondary btn-sm" type="button" onclick="askFromButton(this)"
+            data-q="Tiri Totali probabili {{ team_home }}">
+            📈 Tiri Totali probabili
+          </button>
+    
+          <button class="btn btn-outline-secondary btn-sm" type="button" onclick="askFromButton(this)"
+            data-q="Falli Commessi probabili {{ team_home }}">
+            🚩 Falli Commessi probabili
+          </button>
+    
+          <button class="btn btn-outline-secondary btn-sm" type="button" onclick="askFromButton(this)"
+            data-q="Parate probabili {{ team_home }}">
+            🧤 Parate probabili
+          </button>
+
+          <button class="btn btn-outline-secondary btn-sm" type="button" onclick="askFromButton(this)"
+            data-q="Cartellini probabili {{ team_home }}">
+            🟨 Cartellini probabili
+          </button>
+        </div>
+    
+        <!-- colonna destra: TRASFERTA -->
+        <div class="qa-col">
+          <div class="qa-col-title"> <img src="{{ flag_away }}" width="20" height="20"> {{ team_away }}</div>
+    
+          <button class="btn btn-outline-secondary btn-sm" type="button" onclick="askFromButton(this)"
+            data-q="Tiri in Porta probabili {{ team_away }}">
+            🎯 Tiri in Porta probabili
+          </button>
+    
+          <button class="btn btn-outline-secondary btn-sm" type="button" onclick="askFromButton(this)"
+            data-q="Tiri Totali probabili {{ team_away }}">
+            📈 Tiri Totali probabili
+          </button>
+    
+          <button class="btn btn-outline-secondary btn-sm" type="button" onclick="askFromButton(this)"
+            data-q="Falli Commessi probabili {{ team_away }}">
+            🚩 Falli Commessi probabili
+          </button>
+    
+          <button class="btn btn-outline-secondary btn-sm" type="button" onclick="askFromButton(this)"
+            data-q="Parate probabili {{ team_away }}">
+            🧤 Parate probabili
+          </button>
+
+          <button class="btn btn-outline-secondary btn-sm" type="button" onclick="askFromButton(this)"
+            data-q="Cartellini probabili {{ team_away }}">
+            🟨 Cartellini probabili
+          </button>
+        </div>
+    
+        <!-- full width -->
+        <button class="btn btn-outline-primary btn-sm qa-full" type="button" onclick="askHowItWorks()">
+          ❓ Come funziona?
+        </button>
+      </div>
+    </div>
+
+
+  <style>
+    /* ====== FAB: bottone fisso in basso a destra ====== */
+#assistenza-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+/* ====== Pannello chat ====== */
+#chat-assistenza {
+  display: none;                 /* nascosta all'avvio; il JS userà display:flex */
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 700px;
+  max-width: 95vw;
+  height: 80vh;
+  max-height: 90vh;
+  z-index: 10000;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  flex-direction: column;        /* diventa attivo quando JS imposta display:flex */
+  box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+}
+
+/* Header */
+#chat-assistenza .chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  background: #f8f9fa;
+  flex: 0 0 auto;
+}
+
+/* ====== Quick actions (griglia Casa | Trasferta) ====== */
+#chat-assistenza .quick-actions {
+  padding: 10px 12px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* colonna sinistra: Casa | colonna destra: Trasferta */
+  grid-auto-rows: auto;
+  gap: 10px 12px;
+  flex: 0 0 auto;
+}
+
+#chat-assistenza .quick-actions .qa-full {
+  grid-column: 1 / -1;              /* bottone a tutta larghezza */
+  width: 100%;
+}
+
+#chat-assistenza .quick-actions .qa-col {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
+#chat-assistenza .quick-actions .qa-col-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #374151;
+  margin-bottom: 2px;
+}
+
+#chat-assistenza .quick-actions .qa-col .btn {
+  width: 100%;
+  text-align: left;
+  white-space: normal;
+}
+
+/* ====== Area messaggi ====== */
+#chat-assistenza .chat-box {
+  padding: 14px;
+  overflow-y: auto;
+  background: #f7f7f9;
+  flex: 1 1 auto;                  /* occupa lo spazio verticale restante */
+}
+
+/* Messaggi */
+#chat-assistenza .msg {
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+
+#chat-assistenza .msg .bubble {
+  display: inline-block;
+  padding: 8px 10px;
+  border-radius: 10px;
+  max-width: 85%;
+  text-align: left;
+  border: 1px solid #e5e7eb;
+}
+
+#chat-assistenza .msg.user { text-align: right; }
+#chat-assistenza .msg.user .bubble { background: #dbeafe; }
+#chat-assistenza .msg.ai .bubble { background: #e9ecef; }
+#chat-assistenza .msg.system .bubble { background: #fff8e1; }
+
+/* Scroller carino (solo WebKit) */
+#chat-assistenza .chat-box::-webkit-scrollbar { width: 10px; }
+#chat-assistenza .chat-box::-webkit-scrollbar-track { background: #f0f0f3; }
+#chat-assistenza .chat-box::-webkit-scrollbar-thumb {
+  background: #c9ccd1;
+  border-radius: 8px;
+}
+#chat-assistenza .chat-box::-webkit-scrollbar-thumb:hover { background: #b6bac0; }
+
+/* ====== Input ====== */
+#chat-assistenza .chat-input {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  padding: 10px;
+  background: #fff;
+  flex: 0 0 auto;
+  border-top: 1px solid #eee;
+}
+
+#chat-assistenza #user-input {
+  width: 100%;
+  resize: none;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px 12px;
+  outline: none;
+  min-height: 44px;
+}
+
+#chat-assistenza #user-input:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 576px) {
+  #chat-assistenza {
+    right: 10px;
+    left: 10px;
+    width: auto;
+    height: 75vh;
+  }
+
+  #chat-assistenza .quick-actions {
+    grid-template-columns: 1fr;    /* in mobile, una colonna sola */
+    gap: 8px;
+  }
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  background: #f8f9fa;
+}
+
+/* Contenitore progress a destra del titolo */
+.usage-wrap {
+  margin-left: auto;              /* spinge il gruppo a destra */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 240px;               /* spazio minimo per label + barra */
+}
+
+.usage-label {
+  font-size: 0.8rem;
+  color: #6b7280;                 /* grigio soft */
+  white-space: nowrap;
+}
+
+.usage-bar {
+  flex: 1 1 auto;                 /* la barra si espande */
+  height: 8px;
+  background: #e5e7eb;            /* grigio chiaro */
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.usage-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #22c55e, #3b82f6);
+  transition: width .35s ease;
+}
+
+.usage-pct {
+  font-size: 0.75rem;
+  color: #374151;
+  min-width: 34px;
+  text-align: right;
+}
+
+    
+</style>
+
+<!-- Context Da dare all'AI in JSON da /prediction -->
+  <script id="fm-context" type="application/json">
+  {{ {
+    "home_master_stats": home_master_stats,
+    "away_master_stats": away_master_stats,
+    "last_match": last_match,
+    "last_match1": last_match1,
+    "team_general_stats_home": team_general_stats_home,
+    "team_general_stats_away": team_general_stats_away,
+  } | tojson }}
+  </script>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // === Context dal DOM ===
+      const FM_CONTEXT_EL = document.getElementById("fm-context");
+      let FM_CONTEXT = {};
+      try {
+        FM_CONTEXT = FM_CONTEXT_EL ? JSON.parse(FM_CONTEXT_EL.textContent) : {};
+      } catch (e) {
+        console.warn("Context JSON non valido:", e);
+      }
+
+      // === Elementi ===
+      const chat = document.getElementById("chat-assistenza");
+      const floatingBtn = document.getElementById("assistenza-button");
+      const chatBox = document.getElementById("chat-box"); // aggiungi role="log" aria-live="polite" nell'HTML
+      const input = document.getElementById("user-input");
+      const sendBtn = document.getElementById("send-btn");
+      const qaWrap = document.getElementById("qa");       // <div class="quick-actions" id="qa">
+
+      // Stato
+      let isBusy = false;
+      let ctrl = null;  // AbortController per annullare richieste in corso
+
+      // Apertura/chiusura
+      function openChat() {
+        if (!chat) return;
+        chat.style.display = "flex"; // il contenitore è flex
+        if (floatingBtn) floatingBtn.style.display = "none";
+        if (input) input.focus();
+      }
+      function cancelInFlight() {
+        if (ctrl) { ctrl.abort(); ctrl = null; }
+        removeTyping();
+        setBusy(false);
+      }
+      function toggleChat() {
+        if (!chat) return;
+        const hidden = chat.style.display === "none" || chat.style.display === "";
+        if (hidden) {
+          openChat();
+        } else {
+          // se chiudo mentre è in corso una richiesta, la annullo
+          cancelInFlight();
+          chat.style.display = "none";
+          if (floatingBtn) floatingBtn.style.display = "block";
+        }
+      }
+      window.openChat = openChat;
+      window.toggleChat = toggleChat;
+
+      // ESC per chiudere
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && chat && chat.style.display !== "none") toggleChat();
+      });
+
+      // Invio (Shift+Invio = a capo)
+      if (input) {
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+          }
+        });
+      }
+      if (sendBtn) sendBtn.addEventListener("click", sendMessage);
+
+      // Quick help
+      function askHowItWorks() {
+        if (isBusy) return;
+        appendUser("Come funziona?");
+        appendTyping();
+        setBusy(true);
+        setTimeout(() => {
+          removeTyping();
+          appendAI("Analizzo i dati statistici della stagione in corso e gli esiti degli ultimi scontri diretti, combinando variabili come forma e motivazione. Uso modelli di AI per stimare gli esiti più probabili. Il calcio però resta imprevedibile, quindi prendimi come supporto, non come certezza.");
+          setBusy(false);
+        }, 300);
+      }
+      window.askHowItWorks = askHowItWorks;
+
+      // Quick actions → AI
+      function askFromButton(btn) {
+        if (isBusy) return;
+        const raw = (btn?.dataset?.q || btn?.innerText || btn?.textContent || "").trim();
+        const q = raw.replace(/^[^A-Za-zÀ-ÖØ-öø-ÿ0-9]+/, "").trim(); // rimuove emoji/icone iniziali
+        askAI(q);
+      }
+      window.askFromButton = askFromButton;
+
+      // Core: chiamata al backend
+      async function askAI(question) {
+        const q = String(question || "").trim();
+        if (!q || isBusy) return;
+
+        appendUser(q);
+        appendTyping();
+        setBusy(true);
+
+        // annulla eventuale richiesta precedente
+        if (ctrl) ctrl.abort();
+        ctrl = new AbortController();
+
+        try {
+          const res = await fetch("/api/ai_chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: q, context: FM_CONTEXT }),
+            signal: ctrl.signal
+          });
+
+          removeTyping();
+
+          if (!res.ok) {
+            appendAI("Errore nel server. Riprova tra poco.");
+          } else {
+            const data = await res.json().catch(() => ({}));
+            appendAI(data.reply || "OK");
+            if (typeof data.usage_pct === "number") {
+              updateUsageBar(data.usage_pct);
+            }
+
+            // Se il backend ti manda un totale spesa mese, puoi aggiornare una progress bar qui:
+            // if (typeof data.total_month === "number") setUsageProgress( (data.total_month / BUDGET_USD) * 100 );
+          }
+        } catch (err) {
+          removeTyping();
+          if (err && err.name === "AbortError") {
+            appendAI("Richiesta annullata.");
+          } else {
+            appendAI("Connessione assente o server non raggiungibile.");
+          }
+        } finally {
+          setBusy(false);
+          ctrl = null;
+        }
+      }
+      window.askAI = askAI;
+
+      // Stato busy
+      function setBusy(b) {
+        isBusy = !!b;
+        if (input) input.disabled = isBusy;
+        if (sendBtn) sendBtn.disabled = isBusy;
+        if (qaWrap) qaWrap.classList.toggle("is-busy", isBusy);
+        if (!isBusy && input) input.focus();
+      }
+
+      // UI helpers
+      function appendUser(text) {
+        if (!chatBox) return;
+        chatBox.insertAdjacentHTML(
+          "beforeend",
+          `<div class="msg user"><div class="bubble"><b>Tu:</b> ${escapeHtml(text)}</div></div>`
+        );
+        scrollToBottom();
+      }
+      function appendAI(text) {
+        if (!chatBox) return;
+        chatBox.insertAdjacentHTML(
+          "beforeend",
+          `<div class="msg ai"><div class="bubble"><b>Football Masters AI:</b> ${text}</div></div>`
+        );
+        scrollToBottom();
+      }
+      function appendTyping() {
+        if (!chatBox) return;
+        chatBox.insertAdjacentHTML(
+          "beforeend",
+          `<div class="msg ai" id="typing"><div class="bubble"><i>AI sta elaborando i dati…</i></div></div>`
+        );
+        scrollToBottom();
+      }
+      function removeTyping() { document.getElementById("typing")?.remove(); }
+      function scrollToBottom() { if (chatBox) chatBox.scrollTop = chatBox.scrollHeight; }
+      function escapeHtml(str) {
+        return String(str).replace(/[&<>"']/g, m => ({
+          "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+        }[m]));
+      }
+
+      // invio da textarea
+      function sendMessage() {
+        const text = (input && input.value || "").trim();
+        if (!text || isBusy) return;
+        input.value = "";
+        askAI(text);
+      }
+
+      function updateUsageBar(pct) {
+        const fill = document.getElementById("ai-usage-fill");
+        const text = document.getElementById("ai-usage-text");
+
+        const clamped = Math.max(0, Math.min(100, Number(pct) || 0));
+
+        if (fill) {
+          fill.style.width = clamped + "%";
+          fill.setAttribute("aria-valuenow", String(clamped));
+
+          // colori “semaforo”
+          if (clamped >= 90) {
+            fill.style.background = "linear-gradient(90deg,#f97316,#ef4444)";
+          } else if (clamped >= 80) {
+            fill.style.background = "linear-gradient(90deg,#fbbf24,#f59e0b)";
+          } else {
+            fill.style.background = "linear-gradient(90deg,#60a5fa,#2563eb)";
+          }
+        }
+        if (text) text.textContent = `${Math.round(clamped)}%`;
+      }
+
+
+    });
+  </script>
+
+
+
     </section>
    
   </main><!-- End #main -->
@@ -1728,14 +2257,9 @@
         &copy; Copyright <strong><span>Football Masters</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
         Designed by Maurizio Polverini - <a href="https://www.app-eleven.it/">App Eleven</a>
       </div>
     </footer><!-- End Footer -->
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="{{ url_for('static', filename='vendor/apexcharts/apexcharts.min.js') }}"></script>
