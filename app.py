@@ -752,7 +752,7 @@ def api_ai_chat():
 
     reply = resp.choices[0].message.content
 
-    u = resp.usage  # -> ha prompt_tokens, completion_tokens, total_tokens
+    u = resp.usage  # -> ha prompt_tokens, completion_tokens, total_tokens 
     in_tok  = u.prompt_tokens or 0
     out_tok = u.completion_tokens or 0
 
