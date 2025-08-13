@@ -1145,13 +1145,17 @@
                         
                         <div class="row text-center">
                           <div class="col-3">
-                            <h6>{{ last_match.0.statistics[17].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Goal Prevented Bologna -->
+                            <h6>{{ last_match[0].statistics[17:18][0].value if last_match and last_match|length > 0 and
+                              last_match[0].statistics[17:18] else 'N/A' }}</h6> <!-- Goal Prevented Bologna -->
                           </div>
                           <div class="col-6"><span class="text-muted small pt-2 ps-1">Goal Prevented (GP)</span></div>
                           <div class="col-3">
-                            <h6>{{ last_match.1.statistics[17].value if last_match and last_match|length > 0 else 0 }}</h6> <!-- Goal Prevented Venezia -->
+                            <h6>{{ last_match[1].statistics[17:18][0].value if last_match and last_match|length > 1 and
+                              last_match[1].statistics[17:18] else 'N/A' }}</h6> <!-- Goal Prevented Venezia -->
                           </div>
                         </div>
+
+
 
 
                       </div>
