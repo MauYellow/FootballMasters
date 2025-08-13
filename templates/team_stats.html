@@ -864,9 +864,9 @@
                                         <div class="col-12">
                                             <div class="d-flex justify-content-between">
                                                 <div class="text-muted">% Pareggi totale</div>
-                                                <div><strong class="card-title">{{ ((data_team.fixtures.draws.total or 0) /
-                                                (data_team.fixtures.played.total or 0) * 100 ) | float | round(2)
-                                                }}%
+                                                <div><strong class="card-title">{{ ((data_team.fixtures.draws.total or 0) / (data_team.fixtures.played.total if data_team.fixtures.played.total else 1)
+                                                * 100) | float | round(2) }}%
+
                                                     </strong></div>
                                                 <!-- Mantenuto lo stesso font e colore del titolo -->
                                             </div>
@@ -1281,7 +1281,7 @@
                                 <ul class="list-group mb-2">
                                     <li class="list-group-item d-flex align-items-center">
                                         <img src="{{ player.photo }}" alt="{{ player.name }}" class="rounded-circle me-3"
-                                            style="width: 40px; height: 40px; object-fit: cover;">
+                                            style="width: 40px; height: 40px; object-fit: cover;" onerror="this.onerror=null; this.src='https://img.icons8.com/flat-round/64/question-mark.png';">
                                         <div class="flex-grow-1">
                                             <a href="{{ url_for('player_stats', player_id=player.id) }}" class="text-decoration-none">
                                                 <strong>{{ player.name }}</strong>
