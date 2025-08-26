@@ -670,23 +670,27 @@ def prediction(match_id):
   #print(f"Away_Master_Stats: {away_master_stats}")
   
   #Studio Ultimo Scontro Diretto
+
+
   last_match = []
-  
-  if precedenti_matchJSON:
+  last_match1 = []
+
+  if len(precedenti_matchJSON) > 0:  # c'è almeno un match
     params = {
       "fixture": precedenti_matchJSON[0]['fixture']['id']
     }
     response = requests.get(apifootball_url + "fixtures/statistics", headers=headers, params=params)
     response = response.json()
     last_match = response.get('response', [])
-    if precedenti_matchJSON[1]:
-      
-      params = {
+
+  if len(precedenti_matchJSON) > 1:  # c'è almeno un secondo match
+    params = {
       "fixture": precedenti_matchJSON[1]['fixture']['id']
     }
-      response = requests.get(apifootball_url + "fixtures/statistics", headers=headers, params=params)
-      response = response.json()
-      last_match1 = response.get('response', [])
+    response = requests.get(apifootball_url + "fixtures/statistics", headers=headers, params=params)
+    response = response.json()
+    last_match1 = response.get('response', [])
+
       
       
   #print(f"Last_Match: {last_match}")
