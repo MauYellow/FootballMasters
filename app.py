@@ -101,54 +101,60 @@ def loading_player_stats():
 
 @app.route('/player/<int:player_id>')
 def player_stats(player_id):
-  global current_season
-  params = {
-        "id": player_id,
-        "season": current_season,
-    }
-  response = requests.get(apifootball_url + "players", headers=headers, params=params)
-  response = response.json()
-  print(f"Response data: {response}")
-  try:
-    data = response['response'][0]
-  except IndexError:
-    error = "Non ci sono dati disponibili per la richiesta effettuata"
-    return redirect(url_for('error', error=error))
-  except Exception as e:
-    return redirect(url_for('error', error=str(e)))
-  params = {
-      "id": player_id,
-      "season": current_season - 1
-    }
-  data_1 = requests.get(apifootball_url + "players", headers=headers, params=params)
-  data_1 = data_1.json()
-  data_1 = data_1['response'][0]
-  params = {
-      "id": player_id,
-      "season": current_season - 2
-  }
-  data_2 = requests.get(apifootball_url + "players", headers=headers, params=params)
-  data_2 = data_2.json()
-  data_2 = data_2['response'][0]
-  params = {
-      "id": player_id,
-      "season": current_season - 3
-  }
-  data_3 = requests.get(apifootball_url + "players", headers=headers, params=params)
-  data_3 = data_3.json()
-  data_3 = data_3['response'][0]
-  params = {
-      "id": player_id,
-      "season": current_season - 4
-  }
-  data_4 = requests.get(apifootball_url + "players", headers=headers, params=params)
-  data_4 = data_4.json()
-  data_4 = data_4['response'][0]
-  print(f"data: {data}")
-  print("*******")
-  print(f"data_1: {data_1}")
+    global current_season
 
-  return render_template("player_stats.html", data=data, data_1=data_1, data_2=data_2, data_3=data_3, data_4=data_4, current_season=current_season) #ho tolto questo, serviva? seasons=seasons, 
+    def fetch_player_season(pid: int, season: int):
+        params = {"id": pid, "season": season}
+        try:
+            res = requests.get(apifootball_url + "players", headers=headers, params=params).json()
+            resp = res.get("response", [])
+            return resp[0] if resp else None
+        except Exception:
+            # opzionale: loggare
+            return None
+
+    def empty_payload():
+        # struttura minima con tutti i campi usati nel template
+        return {
+            "player": {
+                "photo": url_for('static', filename='img/profile-img.jpg'),
+                "firstname": "", "lastname": "", "nationality": "", "weight": "", "height": ""
+            },
+            "statistics": [{
+                "team": {"id": 0, "name": "N/A", "logo": url_for('static', filename='img/placeholder-team.png')},
+                "league": {"id": 0},
+                "games": {"appearences": 0, "minutes": 0, "lineups": 0, "rating": 0},
+                "goals": {"total": 0, "assists": 0, "saves": 0, "conceded": 0},
+                "shots": {"on": 0, "total": 0},
+                "passes": {"total": 0, "key": 0, "accuracy": None},
+                "fouls": {"committed": 0, "drawn": 0},
+                "tackles": {"total": 0, "blocks": 0, "interceptions": 0},
+                "duels": {"won": 0, "total": 0},
+                "dribbles": {"success": 0, "attempts": 0, "past": None},
+                "penalty": {"scored": 0, "missed": 0, "commited": 0, "saved": 0}
+            }]
+        }
+
+    # prendo le ultime 5 stagioni (corrente inclusa)
+    seasons = [current_season - i for i in range(5)][::-1]  # opzionale ordinamento
+    payloads = [fetch_player_season(player_id, s) for s in seasons]
+
+    # se anche la stagione corrente è vuota -> errore esplicito
+    if payloads[-1] is None:
+        error = "Non ci sono dati disponibili per la stagione corrente."
+        return redirect(url_for('error', error=error))
+
+    # normalizzo i None con lo scheletro
+    payloads = [p if p is not None else empty_payload() for p in payloads]
+
+    # mantieni le variabili che il template già si aspetta
+    data_4, data_3, data_2, data_1, data = payloads  # 5 stagioni: -4, -3, -2, -1, 0
+
+    return render_template(
+        "player_stats.html",
+        data=data, data_1=data_1, data_2=data_2, data_3=data_3, data_4=data_4,
+        current_season=current_season
+    )
 
 
 @app.route('/team/<int:team_id>/<int:league_id>') #da riaggiungere data_1 data_2 per le statistiche dei giocatori cliccati (?)
